@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRegisterRequest;
 use App\Models\User;
+use App\Notifications\CustomVerifyEmail;
 
 class RegisterController extends Controller
 {
@@ -15,6 +16,8 @@ class RegisterController extends Controller
 		$attributes = $request->validated();
 
 		$user = User::create($attributes);
+
+		$user->notify(new CustomVerifyEmail($user->name));
 
 		return response()->json([
 			'user'  => $user,

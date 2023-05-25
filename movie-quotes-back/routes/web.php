@@ -10,3 +10,9 @@
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+use App\Http\Controllers\EmailVerificationController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/email/verify/{id}/{hash}', EmailVerificationController::class)
+	->middleware(['signed'])->name('verification.verify');
