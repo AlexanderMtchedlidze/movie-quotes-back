@@ -11,7 +11,7 @@ class StoreRegisterRequest extends FormRequest
 	 */
 	public function authorize(): bool
 	{
-		return false;
+		return true;
 	}
 
 	/**
@@ -22,7 +22,7 @@ class StoreRegisterRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'username' => 'required|min:3|max:15|regex:/^[a-z]+$/',
+			'name'     => 'required|min:3|max:15|regex:/^[a-z]+$/',
 			'email'    => 'required|email',
 			'password' => 'required|min:8|max:15|regex:/^[a-z]+$/|confirmed',
 		];
