@@ -23,11 +23,13 @@ class SessionController extends Controller
 			throw ValidationException::withMessages(['username' => 'The credentials you entered are incorrect']);
 		}
 
-		Auth::login($user);
+		Auth::login($user, $request->filled('remember-me'));
+		session()->regenerate();
 	}
 
 	public function logout(Request $request)
 	{
 		$request->user()->currentAccessToken()->delete();
+		session()->regenerate();
 	}
 }

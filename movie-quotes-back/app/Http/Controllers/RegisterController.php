@@ -18,10 +18,5 @@ class RegisterController extends Controller
 		$user = User::create($attributes);
 
 		$user->notify(new CustomVerifyEmail($user->name));
-
-		return response()->json([
-			'user'  => $user,
-			'token' => $user->createToken('laravel_api_token'),
-		]);
 	}
 }
