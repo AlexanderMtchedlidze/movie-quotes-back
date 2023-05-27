@@ -7,7 +7,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 
 class CustomVerifyEmail extends VerifyEmail
 {
-	protected string $userName;
+	public string $userName;
 
 	public function __construct(string $userName)
 	{
@@ -17,6 +17,6 @@ class CustomVerifyEmail extends VerifyEmail
 	protected function buildMailMessage($url): MailMessage
 	{
 		return (new MailMessage)
-			->view('emails.verify-email', ['url' => $url, 'userName' => $this->userName]);
+			->view('emails.verify-email', ['url' => $url]);
 	}
 }
