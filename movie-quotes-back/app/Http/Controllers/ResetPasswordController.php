@@ -20,7 +20,7 @@ class ResetPasswordController extends Controller
 		return redirect($url);
 	}
 
-	public function resetPassword(StoreResetPasswordRequest $request): RedirectResponse
+	public function resetPassword(StoreResetPasswordRequest $request)
 	{
 		Password::reset(
 			$request->validated(),
@@ -32,10 +32,8 @@ class ResetPasswordController extends Controller
 			}
 		);
 
-        $url = config('app.vite_app_url');
-
-        $url .= 
-
-        return redirect($url);
+		return response()->json([
+			'message' => 'Password has been updated successfully',
+		]);
 	}
 }
