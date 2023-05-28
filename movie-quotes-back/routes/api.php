@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::middleware('guest')->group(function () {
+	Route::post('/forgot-password', ForgotPasswordController::class)->name('password.email');
 	Route::post('/login', [SessionController::class, 'login']);
 	Route::post('/register', RegisterController::class);
 });
@@ -31,4 +32,5 @@ Route::middleware('guest')->group(function () {
 Route::middleware('guest')->group(function () {
 	Route::post('/forgot-password', ForgotPasswordController::class)->name('password.email');
 	Route::get('/reset-password/{token}', [ResetPasswordController::class, 'redirectWithToken'])->name('password.reset');
+	Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 });
