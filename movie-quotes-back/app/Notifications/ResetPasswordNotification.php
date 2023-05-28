@@ -14,13 +14,16 @@ class ResetPasswordNotification extends Notification
 
 	public string $userName;
 
+	public string $email;
+
 	/**
 	 * Create a new notification instance.
 	 */
-	public function __construct(string $url, string $userName)
+	public function __construct(string $url, string $userName, string $email)
 	{
 		$this->url = $url;
 		$this->userName = $userName;
+		$this->email = $email;
 	}
 
 	/**
@@ -40,6 +43,6 @@ class ResetPasswordNotification extends Notification
 	{
 		return (new MailMessage)
 			->subject('Reset password')
-			->view('emails.reset-password');
+			->view('emails.reset-password', ['url' => $this->url, 'userName' => $this->userName, 'email' => $this->email]);
 	}
 }
