@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\StoreRegisterRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\StoreRegisterRequest;
 use App\Models\User;
 use App\Notifications\CustomVerifyEmail;
 

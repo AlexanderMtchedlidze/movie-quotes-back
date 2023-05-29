@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\PasswordReset;
 
-use App\Http\Requests\StoreResetPasswordRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\PasswordReset\StoreResetPasswordRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Password;
@@ -20,7 +21,7 @@ class ResetPasswordController extends Controller
 		return redirect($url);
 	}
 
-	public function resetPassword(StoreResetPasswordRequest $request)
+	public function resetPassword(StoreResetPasswordRequest $request): void
 	{
 		Password::reset(
 			$request->validated(),
@@ -31,9 +32,5 @@ class ResetPasswordController extends Controller
 				$user->save();
 			}
 		);
-
-		return response()->json([
-			'message' => 'Password has been updated successfully',
-		]);
 	}
 }
