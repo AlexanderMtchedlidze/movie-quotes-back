@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmailVerificationController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SocialiteGoogleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/email/verify/{id}/{hash}', EmailVerificationController::class)
 	->middleware(['signed'])->name('verification.verify');
+
+Route::get('/auth/google/redirect', [SocialiteGoogleController::class, 'handleRedirect']);
+
+Route::get('/auth/google/callback', [SocialiteGoogleController::class, 'handleCallback']);

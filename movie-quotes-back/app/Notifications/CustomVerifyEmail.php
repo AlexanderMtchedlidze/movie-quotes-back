@@ -7,7 +7,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 
 class CustomVerifyEmail extends VerifyEmail
 {
-	protected string $userName;
+	public string $userName;
 
 	public function __construct(string $userName)
 	{
