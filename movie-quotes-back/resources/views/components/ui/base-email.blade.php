@@ -73,6 +73,17 @@
     .paragraph__footer {
         display: inline;
     }
+
+    .paragraph__main {
+        margin-bottom: 3.2rem;
+    }
+
+    .verify__link {
+        padding: 0.7rem 1.3rem;
+        background-color: #E31221;
+        color: white;
+        border-radius: 4px;
+    }
 </style>
 
 <html lang="en">
@@ -88,7 +99,10 @@
 <main>
     <h4>Hola {{ $userName }}!</h4>
     <div>
-        {{ $slot }}
+        <p class="paragraph__main">{{ $text }}</p>
+        <a class="verify__link" href="{{ $url }}">{{ $linkText }}</a>
+    </div>
+    <div>
         <p class="paragraph__helper">If clicking doesn't work, you can try copying and pasting it to your browser:</p>
         <a class="verify__link-helper" href="{{ $url }}">{{ $url }}</a>
     </div>

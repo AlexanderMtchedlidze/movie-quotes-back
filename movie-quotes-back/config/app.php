@@ -17,6 +17,8 @@ return [
 
 	'name' => env('APP_NAME', 'Laravel'),
 
+	'vite_app_url' => env('VITE_APP_URL', 'http://localhost:5173'),
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application Environment
