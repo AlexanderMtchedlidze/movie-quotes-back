@@ -20,7 +20,7 @@ class ResetPasswordController extends Controller
 		return redirect($url);
 	}
 
-	public function resetPassword(StoreResetPasswordRequest $request)
+	public function resetPassword(StoreResetPasswordRequest $request): void
 	{
 		Password::reset(
 			$request->validated(),
@@ -31,9 +31,5 @@ class ResetPasswordController extends Controller
 				$user->save();
 			}
 		);
-
-		return response()->json([
-			'message' => 'Password has been updated successfully',
-		]);
 	}
 }
