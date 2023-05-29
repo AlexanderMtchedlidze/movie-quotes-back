@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\CustomEmailVerificationRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\CustomEmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 
 class EmailVerificationController extends Controller

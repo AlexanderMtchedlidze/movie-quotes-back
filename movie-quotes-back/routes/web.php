@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\EmailVerificationController;
-use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\SessionController;
+use App\Http\Controllers\Auth\EmailVerificationController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\SessionController;
+use App\Http\Controllers\PasswordReset\ForgotPasswordController;
+use App\Http\Controllers\PasswordReset\ResetPasswordController;
+use App\Http\Controllers\Socialite\SocialiteGoogleController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SocialiteGoogleController;
 
 /*
 |--------------------------------------------------------------------------
