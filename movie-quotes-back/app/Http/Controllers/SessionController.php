@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSessionRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\ValidationException;
@@ -22,14 +23,13 @@ class SessionController extends Controller
 			throw ValidationException::withMessages(['username' => 'The credentials you entered are incorrect']);
 		}
 
-		return response()->json([
-			'user'  => $user,
-			'token' => $user->createToken('laravel_api_token')->plainTextToken,
-		]);
+		Auth::login($user, $request->filled('remember-me'));
+		session()->regenerate();
 	}
 
 	public function logout(Request $request)
 	{
 		$request->user()->currentAccessToken()->delete();
+		session()->regenerate();
 	}
 }
