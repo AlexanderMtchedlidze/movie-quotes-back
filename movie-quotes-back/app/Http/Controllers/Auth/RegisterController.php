@@ -18,6 +18,8 @@ class RegisterController extends Controller
 
 		$user = User::create($attributes);
 
-		$user->notify(new CustomVerifyEmail($user->name));
+		$url = $user->generateVerificationUrl();
+
+		$user->notify(new CustomVerifyEmail($url, $user->name));
 	}
 }
