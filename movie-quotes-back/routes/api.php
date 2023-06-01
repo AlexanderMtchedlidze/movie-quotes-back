@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\PasswordReset\ForgotPasswordController;
 use App\Http\Controllers\PasswordReset\ResetPasswordController;
+use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\Socialite\SocialiteGoogleController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,3 +37,5 @@ Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']
 
 Route::get('/auth/google/redirect', [SocialiteGoogleController::class, 'handleRedirect']);
 Route::get('/auth/google/callback', [SocialiteGoogleController::class, 'handleCallback']);
+
+Route::get('/quotes', [QuoteController::class, 'getAllQuotes']);
