@@ -17,7 +17,7 @@ class QuoteFactory extends Factory
 	public function definition(): array
 	{
 		return [
-			'thumbnail' => fake()->imageUrl,
+			'thumbnail' => fake()->image('public/storage', 800),
 			'quote'     => fake()->paragraph,
 			'likes'     => fake()->numberBetween(10, 35),
 		];

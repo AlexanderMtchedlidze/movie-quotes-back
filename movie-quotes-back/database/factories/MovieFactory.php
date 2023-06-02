@@ -18,7 +18,7 @@ class MovieFactory extends Factory
 	{
 		return [
 			'movie'     => fake()->word,
-			'thumbnail' => fake()->imageUrl,
+			'thumbnail' => fake()->image('public/storage', 800),
 		];
 	}
 }

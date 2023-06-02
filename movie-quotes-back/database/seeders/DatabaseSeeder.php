@@ -17,12 +17,18 @@ class DatabaseSeeder extends Seeder
 	public function run(): void
 	{
 		$user = User::factory()->create([
-			'email'    => 'test@example.com',
-			'password' => 'example',
+			'email'         => 'test@example.com',
+			'password'      => 'example',
+			'profile_image' => '/default-profile-image.png',
 		]);
 
 		$movie = Movie::factory()->create([
 			'user_id' => $user->id,
+		]);
+
+		Quote::factory(5)->create([
+			'user_id'   => $user->id,
+			'movie_id'  => $movie->id,
 		]);
 
 		$quote = Quote::factory()->create([
