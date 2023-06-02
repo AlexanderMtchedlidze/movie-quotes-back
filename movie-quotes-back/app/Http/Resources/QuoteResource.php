@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,10 +14,16 @@ class QuoteResource extends JsonResource
 	 */
 	public function toArray(Request $request): array
 	{
-		return array_merge(
-			parent::toArray($request),
-			['author'   => new UserResource(User::findOrFail($this->user_id))],
-			['comments' => CommentResource::collection($this->comments)]
-		);
+		return [
+			'id'             => $this->id,
+			'quote'          => $this->quote,
+			'thumbnail'      => $this->thumbnail,
+			'author'         => new UserResource($this->whenLoaded('author')),
+			'comments'       => $this->whenLoaded('comments', function () {
+				return CommentResource::collection($this->comments->load('author'));
+			}),
+			'comments_count'  => $this->whenCounted('comments'),
+			'likes_count'     => $this->likes,
+		];
 	}
 }

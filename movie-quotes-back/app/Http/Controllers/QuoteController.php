@@ -10,6 +10,12 @@ class QuoteController extends Controller
 {
 	public function getAllQuotes(): AnonymousResourceCollection
 	{
-		return QuoteResource::collection(Quote::orderByDesc('created_at')->get());
+		return QuoteResource::collection(
+			Quote::orderByDesc('created_at')
+				->with('comments')
+				->withCount('comments')
+				->with('author')
+				->get()
+		);
 	}
 }

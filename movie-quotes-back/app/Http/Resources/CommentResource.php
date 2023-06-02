@@ -14,9 +14,10 @@ class CommentResource extends JsonResource
 	 */
 	public function toArray(Request $request): array
 	{
-		return array_merge(
-			['author_profile_image' => $this->author->profile_image],
-			parent::toArray($request)
-		);
+		return [
+			'id'                   => $this->id,
+			'comment'              => $this->comment,
+			'author'               => $this->whenLoaded('author'),
+		];
 	}
 }
