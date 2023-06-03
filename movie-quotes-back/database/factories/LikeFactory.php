@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Quote;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Movie>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Like>
  */
-class MovieFactory extends Factory
+class LikeFactory extends Factory
 {
 	/**
 	 * Define the model's default state.
@@ -18,11 +19,11 @@ class MovieFactory extends Factory
 	public function definition(): array
 	{
 		$user = User::inRandomOrder()->first();
+		$quote = Quote::inRandomOrder()->first();
 
 		return [
-			'movie'     => fake()->word,
-			'thumbnail' => fake()->image('public/storage', 800),
-			'user_id'   => $user->id,
+			'user_id'  => $user->id,
+			'quote_id' => $quote->id,
 		];
 	}
 }

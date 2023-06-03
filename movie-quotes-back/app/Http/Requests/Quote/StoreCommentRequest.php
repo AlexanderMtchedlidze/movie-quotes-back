@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\PasswordReset;
+namespace App\Http\Requests\Quote;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreForgotPasswordRequest extends FormRequest
+class StoreCommentRequest extends FormRequest
 {
 	/**
 	 * Get the validation rules that apply to the request.
@@ -14,7 +14,7 @@ class StoreForgotPasswordRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'email' => 'required|email|exists:users,email',
+			'comment' => 'required',
 		];
 	}
 }

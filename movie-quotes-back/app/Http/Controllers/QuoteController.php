@@ -15,6 +15,7 @@ class QuoteController extends Controller
 				->with('comments')
 				->withCount('comments')
 				->with('author')
+				->withCount('likes')
 				->get()
 		);
 	}

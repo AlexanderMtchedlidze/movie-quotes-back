@@ -16,29 +16,16 @@ class DatabaseSeeder extends Seeder
 	 */
 	public function run(): void
 	{
-		$user = User::factory()->create([
+		User::factory()->create([
 			'email'         => 'test@example.com',
 			'password'      => 'example',
 			'profile_image' => '/default-profile-image.png',
 		]);
 
-		$movie = Movie::factory()->create([
-			'user_id' => $user->id,
-		]);
+		Movie::factory(5)->create();
 
-		Quote::factory(5)->create([
-			'user_id'   => $user->id,
-			'movie_id'  => $movie->id,
-		]);
+		Quote::factory(5)->create();
 
-		$quote = Quote::factory()->create([
-			'user_id'   => $user->id,
-			'movie_id'  => $movie->id,
-		]);
-
-		Comment::factory(5)->create([
-			'quote_id' => $quote->id,
-			'user_id'  => $user->id,
-		]);
+		Comment::factory(5)->create();
 	}
 }

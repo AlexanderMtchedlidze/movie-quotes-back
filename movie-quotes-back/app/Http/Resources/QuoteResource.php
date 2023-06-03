@@ -23,7 +23,7 @@ class QuoteResource extends JsonResource
 				return CommentResource::collection($this->comments->load('author'));
 			}),
 			'comments_count'  => $this->whenCounted('comments'),
-			'likes_count'     => $this->likes,
+			'likes_count'     => $this->whenCounted('likes'),
 		];
 	}
 }
