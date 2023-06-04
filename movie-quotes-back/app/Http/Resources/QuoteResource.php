@@ -14,6 +14,14 @@ class QuoteResource extends JsonResource
 	 */
 	public function toArray(Request $request): array
 	{
+		$commentsCount = $this->whenLoaded('comments', function () {
+			return $this->comments->count();
+		});
+
+		$likesCount = $this->whenLoaded('likes', function () {
+			return $this->likes->count();
+		});
+
 		return [
 			'id'             => $this->id,
 			'quote'          => $this->quote,
@@ -22,8 +30,9 @@ class QuoteResource extends JsonResource
 			'comments'       => $this->whenLoaded('comments', function () {
 				return CommentResource::collection($this->comments->load('author'));
 			}),
-			'comments_count'  => $this->whenCounted('comments'),
-			'likes_count'     => $this->whenCounted('likes'),
+			'movie'           => $this->whenLoaded('movie'),
+			'comments_count'  => $commentsCount,
+			'likes_count'     => $likesCount,
 		];
 	}
 }

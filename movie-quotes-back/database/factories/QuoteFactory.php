@@ -22,8 +22,11 @@ class QuoteFactory extends Factory
 		$user = User::inRandomOrder()->first();
 
 		return [
-			'thumbnail' => fake()->image('public/storage', 800),
-			'quote'     => fake()->paragraph,
+			'thumbnail' => fake()->image('public/storage/thumbnails', 800),
+			'quote'     => [
+				'en' => fake()->words(3, true),
+				'ka' => fake('ka_GE')->realText(30),
+			],
 			'movie_id'  => $movie->id,
 			'user_id'   => $user->id,
 		];

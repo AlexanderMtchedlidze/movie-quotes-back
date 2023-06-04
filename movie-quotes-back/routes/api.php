@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PasswordReset\ForgotPasswordController;
 use App\Http\Controllers\PasswordReset\ResetPasswordController;
 use App\Http\Controllers\QuoteController;
@@ -23,13 +24,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/quotes', [QuoteController::class, 'getAllQuotes']);
 Route::middleware('auth:sanctum')->group(function () {
 	Route::get('/user', [UserController::class, 'getUser']);
+
+	Route::post('/quote/add', [QuoteController::class, 'addQuote']);
 
 	Route::prefix('/quote/{id}')->group(function () {
 		Route::post('/like', [LikeController::class, 'likeQuote']);
 		Route::post('/comment', [CommentController::class, 'addComment']);
 	});
+
+	Route::get('/movies', [MovieController::class, 'getAllMovies']);
 });
 
 Route::post('/login', [SessionController::class, 'login']);
@@ -44,5 +50,3 @@ Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']
 
 Route::get('/auth/google/redirect', [SocialiteGoogleController::class, 'handleRedirect']);
 Route::get('/auth/google/callback', [SocialiteGoogleController::class, 'handleCallback']);
-
-Route::get('/quotes', [QuoteController::class, 'getAllQuotes']);
