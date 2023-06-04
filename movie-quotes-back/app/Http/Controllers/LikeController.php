@@ -19,6 +19,9 @@ class LikeController extends Controller
 		if ($quote->exists()) {
 			if ($like->exists()) {
 				$like->delete();
+
+				$likesCount = $quote->likes()->count();
+				return response()->json(['likes_count' => $likesCount]);
 			} else {
 				$like = new Like();
 				$like->user_id = $request->user()->id;
@@ -28,7 +31,7 @@ class LikeController extends Controller
 
 			$likesCount = $quote->likes()->count();
 
-			return response()->json(['likes_count' => $likesCount]);
+			return response()->json(['likes_count' => $likesCount, 'user_in_likes' => true]);
 		}
 
 		return response()->json(['error' => 'Quote not found'], 404);

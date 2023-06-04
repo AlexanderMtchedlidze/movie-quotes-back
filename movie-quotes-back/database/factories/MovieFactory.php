@@ -20,7 +20,10 @@ class MovieFactory extends Factory
 		$user = User::inRandomOrder()->first();
 
 		return [
-			'movie'     => fake()->word,
+			'movie'     => [
+				'en' => fake()->words(3, true),
+				'ka' => fake('ka_GE')->realText(30),
+			],
 			'thumbnail' => fake()->image('public/storage', 800),
 			'user_id'   => $user->id,
 		];

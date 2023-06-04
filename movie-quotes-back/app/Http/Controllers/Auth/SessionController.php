@@ -7,7 +7,6 @@ use App\Http\Requests\Auth\StoreSessionRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
@@ -28,9 +27,10 @@ class SessionController extends Controller
 		session()->regenerate();
 	}
 
-	public function logout(Request $request)
+	public function logout(): void
 	{
-		$request->user()->currentAccessToken()->delete();
+		auth()->logout();
+
 		session()->regenerate();
 	}
 }

@@ -30,8 +30,9 @@ class QuoteResource extends JsonResource
 			'comments'       => $this->whenLoaded('comments', function () {
 				return CommentResource::collection($this->comments->load('author'));
 			}),
-			'movie'           => $this->whenLoaded('movie'),
 			'comments_count'  => $commentsCount,
+			'movie'           => $this->whenLoaded('movie'),
+			'likes'           => $this->whenLoaded('likes'),
 			'likes_count'     => $likesCount,
 		];
 	}
