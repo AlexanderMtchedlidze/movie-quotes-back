@@ -4,8 +4,13 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\SessionController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PasswordReset\ForgotPasswordController;
 use App\Http\Controllers\PasswordReset\ResetPasswordController;
+use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\Socialite\SocialiteGoogleController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +26,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
+	Route::get('/quotes', [QuoteController::class, 'getAllQuotes']);
 	Route::get('/user', [UserController::class, 'getUser']);
+
+	Route::post('/quote/add', [QuoteController::class, 'addQuote']);
+
+	Route::prefix('/quote/{id}')->group(function () {
+		Route::post('/like', [LikeController::class, 'likeQuote']);
+		Route::post('/comment', [CommentController::class, 'addComment']);
+	});
+
+	Route::get('/movies', [MovieController::class, 'getAllMovies']);
+
+	Route::get('/search/quotes/{query}', [SearchController::class, 'filterQuotes']);
+	Route::get('/search/movies/{query}', [SearchController::class, 'filterMovies']);
 });
 
 Route::post('/login', [SessionController::class, 'login']);
