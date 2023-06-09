@@ -21,6 +21,8 @@ return [
 
 	'vite_app_url' => env('VITE_APP_URL', 'http://localhost:5173'),
 
+	'vite_news_feed_url' => env('VITE_NEWS_FEED_URL', '/news-feed'),
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application Environment

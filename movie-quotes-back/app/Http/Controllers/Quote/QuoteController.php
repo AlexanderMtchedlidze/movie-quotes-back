@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Quote;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Quote\StoreQuoteRequest;
 use App\Http\Resources\QuoteResource;
 use App\Models\Quote;
@@ -20,13 +21,14 @@ class QuoteController extends Controller
 
 	public function addQuote(StoreQuoteRequest $request)
 	{
-		$quote = new Quote();
-		$quote->user_id = $request->user()->id;
-		$quote->movie_id = $request->movie_id;
-		$quote->quote = [
-			'en' => $request->quote_en,
-			'ka' => $request->quote_ka,
-		];
+		$quote = Quote::create([
+			'user_id'  => $request->user()->id,
+			'movie_id' => $request->movie_id,
+			'quote'    => [
+				'en' => $request->quote_en,
+				'ka' => $request->quote_ka,
+			],
+		]);
 
 		if ($request->hasFile('thumbnail')) {
 			$thumbnailPath = $request->file('thumbnail')->store('thumbnails');

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Quote;
 
+use App\Http\Controllers\Controller;
 use App\Models\Like;
 use App\Models\Quote;
 use Illuminate\Http\JsonResponse;
@@ -9,11 +10,9 @@ use Illuminate\Http\Request;
 
 class LikeController extends Controller
 {
-	public function likeQuote(Request $request, int $id): JsonResponse
+	public function likeQuote(Request $request, Quote $quote): JsonResponse
 	{
-		$quote = Quote::findOrFail($id);
-
-		$like = Like::where('quote_id', $id)
+		$like = Like::where('quote_id', $quote->id)
 					->where('user_id', $request->user()->id);
 
 		if ($quote->exists()) {
