@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Comment;
+use App\Models\Genre;
+use App\Models\GenreMovies;
 use App\Models\Movie;
 use App\Models\Quote;
 use App\Models\User;
@@ -17,12 +19,17 @@ class DatabaseSeeder extends Seeder
 	public function run(): void
 	{
 		User::factory()->create([
-			'email'         => 'test@example.com',
-			'password'      => 'example',
-			'profile_image' => '/default-profile-image.png',
+			'email'             => 'test@example.com',
+			'password'          => 'example',
+			'profile_image'     => '/default-profile-image.png',
+			'email_verified_at' => now(),
 		]);
 
 		Movie::factory(5)->create();
+
+		Genre::factory(10)->create();
+
+		GenreMovies::factory(5)->create();
 
 		Quote::factory(5)->create();
 

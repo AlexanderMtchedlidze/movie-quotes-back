@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProfileRequest extends FormRequest
 {
@@ -13,10 +14,16 @@ class UpdateProfileRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
+		$userId = auth()->user()->id;
+
 		return [
 			'profile_image' => 'nullable',
-			'username'      => 'nullable',
-			'email'         => 'nullable|email',
+			'username'      => ['nullable', Rule::unique('users', 'name')->ignore($userId)],
+			'email'         => [
+				'nullable',
+				'email',
+				Rule::unique('users')->ignore($userId),
+			],
 			'password'      => 'nullable|min:8|max:15|regex:/^[a-z]+$/|confirmed',
 		];
 	}
