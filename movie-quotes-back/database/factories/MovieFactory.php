@@ -24,7 +24,7 @@ class MovieFactory extends Factory
 				'en' => fake()->words(3, true),
 				'ka' => fake('ka_GE')->realText(30),
 			],
-			'thumbnail' => fake()->image('public/storage', 800),
+			'thumbnail' => fake()->image('public/storage/thumbnails', 800),
 			'user_id'   => $user->id,
 		];
 	}

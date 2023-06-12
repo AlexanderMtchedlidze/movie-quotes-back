@@ -24,7 +24,7 @@ class QuoteResource extends JsonResource
 
 		return [
 			'id'             => $this->id,
-			'quote'          => $this->quote,
+			'quote'          => $this->getTranslations('quote'),
 			'thumbnail'      => $this->thumbnail,
 			'author'         => new UserResource($this->whenLoaded('author')),
 			'comments'       => $this->whenLoaded('comments', function () {

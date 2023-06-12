@@ -29,7 +29,7 @@ class SocialiteGoogleController extends Controller
 
 		Auth::login($user);
 
-		$url = config('app.vite_app_url');
+		$url = config('app.vite_app_url') . config('app.vite_news_feed_url');
 
 		return redirect($url);
 	}

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Socialite\SocialiteGoogleController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,3 +13,5 @@
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/auth/google/callback', [SocialiteGoogleController::class, 'handleCallback']);
