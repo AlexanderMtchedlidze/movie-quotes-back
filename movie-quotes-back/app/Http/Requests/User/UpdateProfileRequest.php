@@ -18,13 +18,30 @@ class UpdateProfileRequest extends FormRequest
 
 		return [
 			'profile_image' => 'nullable',
-			'username'      => ['nullable', Rule::unique('users', 'name')->ignore($userId)],
+			'username'      => [
+				'nullable',
+				Rule::unique('users', 'name')->ignore($userId),
+			],
 			'email'         => [
 				'nullable',
 				'email',
 				Rule::unique('users')->ignore($userId),
 			],
 			'password'      => 'nullable|min:8|max:15|regex:/^[a-z]+$/|confirmed',
+		];
+	}
+
+	public function messages()
+	{
+		return [
+			'name.unique' => [
+				'en' => 'Name must be unique',
+				'ka' => 'სახელი უნდა იყოს განსაკუთრებული',
+			],
+			'email.unique' => [
+				'en' => 'Email must be unique',
+				'ka' => 'ელფოსტა უნდა იყოს განსაკუთრებული',
+			],
 		];
 	}
 }

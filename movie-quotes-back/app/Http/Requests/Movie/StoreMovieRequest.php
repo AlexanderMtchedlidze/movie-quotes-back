@@ -24,4 +24,22 @@ class StoreMovieRequest extends FormRequest
 			'director_ka'       => 'required',
 		];
 	}
+
+	public function messages(): array
+	{
+		return [
+			'movie_ka.unique' => [
+				'en' => 'English movie must be unique',
+				'ka' => 'ინგლისურის ფილმი უნდა იყოს განსაკუთრებული',
+			],
+			'movie_en.unique' => [
+				'en' => 'Georgian movie must be unique',
+				'ka' => 'ქართული ფილმი უნდა იყოს განსაკუთრებული',
+			],
+			'thumbnail.image' => [
+				'en' => 'Image must be an image',
+				'ka' => 'ფოტო უნდა იყოს',
+			],
+		];
+	}
 }

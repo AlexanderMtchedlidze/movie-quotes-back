@@ -27,8 +27,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-	Route::post('/user/update', [UserController::class, 'updateUser']);
-	Route::get('/user', [UserController::class, 'getUser']);
+	Route::prefix('/user')->group(function () {
+		Route::get('/', [UserController::class, 'getUser']);
+		Route::post('/update', [UserController::class, 'updateUser']);
+	});
 
 	Route::get('/quotes', [QuoteController::class, 'getAllQuotes']);
 	Route::post('/quote/add', [QuoteController::class, 'addQuote']);
@@ -45,11 +47,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 	});
 
 	Route::get('/genres', [GenreController::class, 'getAllGenres']);
-
-	Route::prefix('/search')->group(function () {
-		Route::get('/quotes/{query}', [SearchController::class, 'filterQuotes']);
-		Route::get('/movies/{query}', [SearchController::class, 'filterMovies']);
-	});
+});
+Route::prefix('/search')->group(function () {
+	Route::get('/quotes/{query}', [SearchController::class, 'filterQuotes']);
+	Route::get('/movies/{query}', [SearchController::class, 'filterMovies']);
 });
 
 Route::post('/login', [SessionController::class, 'login']);
