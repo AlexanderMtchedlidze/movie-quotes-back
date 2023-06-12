@@ -4,7 +4,8 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\SessionController;
-use App\Http\Controllers\MovieController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\Movie\MovieController;
 use App\Http\Controllers\PasswordReset\ForgotPasswordController;
 use App\Http\Controllers\PasswordReset\ResetPasswordController;
 use App\Http\Controllers\Quote\CommentController;
@@ -27,9 +28,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 	Route::post('/user/update', [UserController::class, 'updateUser']);
-	Route::get('/quotes', [QuoteController::class, 'getAllQuotes']);
 	Route::get('/user', [UserController::class, 'getUser']);
 
+	Route::get('/quotes', [QuoteController::class, 'getAllQuotes']);
 	Route::post('/quote/add', [QuoteController::class, 'addQuote']);
 
 	Route::prefix('/quote/{quote}')->group(function () {
@@ -37,10 +38,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 		Route::post('/comment', [CommentController::class, 'addComment']);
 	});
 
-	Route::get('/movies', [MovieController::class, 'getAllMovies']);
+	Route::prefix('/movies')->group(function () {
+		Route::get('/', [MovieController::class, 'getAllMovies']);
+		Route::get('/add', [MovieController::class, 'addMovie']);
+		Route::get('/{user}', [MovieController::class, 'getUserMovies']);
+	});
 
-	Route::get('/search/quotes/{query}', [SearchController::class, 'filterQuotes']);
-	Route::get('/search/movies/{query}', [SearchController::class, 'filterMovies']);
+	Route::get('/genres', [GenreController::class, 'getAllGenres']);
+
+	Route::prefix('/search')->group(function () {
+		Route::get('/quotes/{query}', [SearchController::class, 'filterQuotes']);
+		Route::get('/movies/{query}', [SearchController::class, 'filterMovies']);
+	});
 });
 
 Route::post('/login', [SessionController::class, 'login']);

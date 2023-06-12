@@ -15,7 +15,7 @@ class QuoteController extends Controller
 		return QuoteResource::collection(
 			Quote::orderByDesc('created_at')
 				->with('author', 'movie', 'comments', 'likes')
-				->get()
+				->paginate()
 		);
 	}
 

@@ -20,7 +20,6 @@ class DatabaseSeeder extends Seeder
 	{
 		User::factory()->create([
 			'email'             => 'test@example.com',
-			'password'          => 'example',
 			'profile_image'     => '/default-profile-image.png',
 			'email_verified_at' => now(),
 		]);
@@ -31,7 +30,7 @@ class DatabaseSeeder extends Seeder
 
 		GenreMovies::factory(5)->create();
 
-		Quote::factory(5)->create();
+		Quote::factory(30)->create();
 
 		Comment::factory(5)->create();
 	}

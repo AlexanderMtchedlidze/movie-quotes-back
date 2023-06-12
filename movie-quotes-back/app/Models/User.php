@@ -65,4 +65,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
 		$this->notify(new ResetPasswordNotification($url, $this->name, $this->email));
 	}
+
+	public function movies()
+	{
+		return $this->hasMany(Movie::class);
+	}
 }

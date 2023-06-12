@@ -26,6 +26,12 @@ class MovieFactory extends Factory
 			],
 			'thumbnail' => fake()->image('public/storage/thumbnails', 800),
 			'user_id'   => $user->id,
+			'year'      => fake()->year,
+			'director'  => [
+				'en' => fake()->firstName,
+				'ka' => fake('ka_GE')->realText(10),
+			],
+			'description' => fake()->paragraph,
 		];
 	}
 }
