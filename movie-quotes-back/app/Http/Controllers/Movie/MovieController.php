@@ -55,4 +55,16 @@ class MovieController extends Controller
 
 		return response()->json(['movie' => new MovieResource($movie)]);
 	}
+
+	public function filterMovies(String $query)
+	{
+		$movies = auth()->user()->movies();
+
+		return MovieResource::collection(
+			$movies->filter(['movie' => $query])
+				->orderByDesc('created_at')
+				->withCount('quotes')
+				->get()
+		);
+	}
 }
