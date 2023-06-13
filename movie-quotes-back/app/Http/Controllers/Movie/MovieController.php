@@ -36,22 +36,22 @@ class MovieController extends Controller
 
 		$movie = Movie::create(['user_id' => auth()->user()->id,
 			'movie'                          => [
-				'en' => $attributes['movie'],
+				'en' => $attributes['movie_en'],
+				'ka' => $attributes['movie_ka'],
 			], 'director' => [
 				'en' => $attributes['director_en'],
 				'ka' => $attributes['director_ka'],
 			], 'description' => [
 				'en' => $attributes['director_en'],
 				'ka' => $attributes['description_ka'],
-			], 'year' => $attributes['year']]);
+			], 'year' => $attributes['year'],
+			'thumbnail' => $request->file('thumbnail')->store('thumbnails'),
+		]);
 
-		if ($request->hasFile('thumbnail')) {
-			$thumbnailPath = $request->file('thumbnail')->store('thumbnail');
-			$movie->thumbnail = $thumbnailPath;
-		}
-
-		$genreIds = $attributes['genres'];
+		$genreIds = $attributes['genre_ids'];
 		$movie->genres()->attach($genreIds);
+
+		$movie->loadCount('quotes');
 
 		return response()->json(['movie' => new MovieResource($movie)]);
 	}

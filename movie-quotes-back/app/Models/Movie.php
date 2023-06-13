@@ -28,7 +28,7 @@ class Movie extends Model
 
 	public function genres(): BelongsToMany
 	{
-		return $this->belongsToMany(Genre::class);
+		return $this->belongsToMany(Genre::class, 'genre_movies');
 	}
 
 	public function scopeFilter(Builder $query, array $filters): void

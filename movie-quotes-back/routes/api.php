@@ -42,7 +42,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 	Route::prefix('/movies')->group(function () {
 		Route::get('/', [MovieController::class, 'getAllMovies']);
-		Route::get('/add', [MovieController::class, 'addMovie']);
+		Route::post('/add', [MovieController::class, 'addMovie']);
 		Route::get('/{user}', [MovieController::class, 'getUserMovies']);
 		Route::get('/search/{query}', [MovieController::class, 'filterMovies']);
 	});
