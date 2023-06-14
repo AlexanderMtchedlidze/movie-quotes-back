@@ -40,7 +40,7 @@ class StoreQuoteRequest extends FormRequest
 			],
 			'thumbnail.image' => [
 				'en' => 'Image must be an image',
-				'ka' => 'ფოტო უნდა იყოს',
+				'ka' => 'ფოტო უნდა იყოს ფოტო',
 			],
 		];
 	}

@@ -17,24 +17,26 @@ class UpdateProfileRequest extends FormRequest
 		$userId = auth()->user()->id;
 
 		return [
-			'profile_image' => 'nullable',
+			'profile_image' => 'image',
 			'username'      => [
-				'nullable',
 				Rule::unique('users', 'name')->ignore($userId),
 			],
 			'email'         => [
-				'nullable',
 				'email',
 				Rule::unique('users')->ignore($userId),
 			],
-			'password'      => 'nullable|min:8|max:15|regex:/^[a-z]+$/|confirmed',
+			'password'      => 'min:8|max:15|regex:/^[a-z]+$/|confirmed',
 		];
 	}
 
 	public function messages()
 	{
 		return [
-			'name.unique' => [
+			'profile_image' => [
+				'en' => 'Image must be an image :)',
+				'ka' => 'სურათი უნდა იყოს სურათი',
+			],
+			'username.unique' => [
 				'en' => 'Name must be unique',
 				'ka' => 'სახელი უნდა იყოს განსაკუთრებული',
 			],
