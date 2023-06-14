@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 			'email'             => 'test@example.com',
 			'profile_image'     => '/default-profile-image.png',
 			'email_verified_at' => now(),
+			'password'          => 'password',
 		]);
 
 		Movie::factory(5)->create();
