@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\Movie\MovieController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PasswordReset\ForgotPasswordController;
 use App\Http\Controllers\PasswordReset\ResetPasswordController;
 use App\Http\Controllers\Quote\CommentController;
@@ -26,11 +27,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware('auth:sanctum')->group(function () {
+	Route::get('/user', [UserController::class, 'getUser']);
+});
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-	Route::prefix('/user')->group(function () {
-		Route::get('/', [UserController::class, 'getUser']);
-		Route::post('/update', [UserController::class, 'updateUser']);
-	});
+	Route::post('/user/update', [UserController::class, 'updateUser']);
 
 	Route::get('/quotes', [QuoteController::class, 'getAllQuotes']);
 	Route::post('/quote/add', [QuoteController::class, 'addQuote']);
@@ -40,6 +42,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 		Route::post('/comment', [CommentController::class, 'addComment']);
 	});
 
+	Route::get('/movie/{movie}', [MovieController::class, 'getMovie']);
+
 	Route::prefix('/movies')->group(function () {
 		Route::get('/', [MovieController::class, 'getAllMovies']);
 		Route::post('/add', [MovieController::class, 'addMovie']);
@@ -48,10 +52,19 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 	});
 
 	Route::get('/genres', [GenreController::class, 'getAllGenres']);
-});
-Route::prefix('/search')->group(function () {
-	Route::get('/quotes/{query}', [SearchController::class, 'filterQuotes']);
-	Route::get('/movies/{query}', [SearchController::class, 'filterMovies']);
+
+	Route::prefix('/search')->group(function () {
+		Route::get('/quotes/{query}', [SearchController::class, 'filterQuotes']);
+		Route::get('/movies/{query}', [SearchController::class, 'filterMovies']);
+	});
+
+	Route::prefix('/notifications')->group(function () {
+		Route::get('/', [NotificationController::class, 'getAllNotifications']);
+		Route::get('/unread', [NotificationController::class, 'getUnreadNotifications']);
+		Route::post('/mark-all-as-read', [NotificationController::class, 'markAllAsRead']);
+	});
+
+	Route::post('/notification/{notification}/mark-as-read', [NotificationController::class, 'markNotificationAsRead']);
 });
 
 Route::post('/login', [SessionController::class, 'login']);

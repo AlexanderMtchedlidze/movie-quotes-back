@@ -23,7 +23,7 @@ class MovieResource extends JsonResource
 			'thumbnail'    => $this->thumbnail,
 			'director'     => $this->getTranslations('director'),
 			'genres'       => $this->whenLoaded('genres'),
-			'description'  => $this->description,
+			'description'  => $this->getTranslations('description'),
 			'year'         => $this->year,
 		];
 	}

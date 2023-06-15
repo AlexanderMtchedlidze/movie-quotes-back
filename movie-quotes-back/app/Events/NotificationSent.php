@@ -15,7 +15,7 @@ class NotificationSent implements ShouldBroadcast
 	/**
 	 * Create a new event instance.
 	 */
-	public function __construct(public $notification)
+	public function __construct(public $notification, public $notificationCount)
 	{
 	}
 

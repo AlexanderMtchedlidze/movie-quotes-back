@@ -10,6 +10,16 @@ class Notification extends Model
 {
 	use HasFactory;
 
+	protected $with = [
+		'sender',
+		'receiver',
+	];
+
+	public function quote(): BelongsTo
+	{
+		return $this->belongsTo(Quote::class);
+	}
+
 	public function sender(): BelongsTo
 	{
 		return $this->belongsTo(User::class);

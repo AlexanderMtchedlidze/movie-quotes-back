@@ -10,11 +10,14 @@ use App\Http\Resources\NotificationResource;
 use App\Models\Comment;
 use App\Models\Notification;
 use App\Models\Quote;
+use App\Policies\NotificationPolicy;
 
 class CommentController extends Controller
 {
 	public function addComment(StoreCommentRequest $request, Quote $quote)
 	{
+		$notificationPolicy = new NotificationPolicy();
+
 		$comment = Comment::create([
 			'user_id'  => auth()->user()->id,
 			'quote_id' => $quote->id,
@@ -25,15 +28,20 @@ class CommentController extends Controller
 
 		event(new UpdateCommentCount($commentsCount, $quote->id));
 
-		$notification = Notification::create([
-			'receiver_id' => $quote->user_id,
-			'sender_id'   => auth()->user()->id,
-			'commented'   => true,
-		]);
+		if ($notificationPolicy->create(auth()->user(), $quote)) {
+			$notification = Notification::create([
+				'quote_id'    => $quote->id,
+				'receiver_id' => $quote->user_id,
+				'sender_id'   => auth()->user()->id,
+				'commented'   => true,
+			]);
+			$notification->load('receiver', 'sender');
 
-		$notification->load('receiver', 'sender');
-
-		event(new NotificationSent(new NotificationResource($notification)));
+			event(new NotificationSent(
+				new NotificationResource($notification),
+				$quote->author->unreadNotifications()->count()
+			));
+		}
 
 		return response()->json(['comment_id' => $comment->id, 'comments_count' => $commentsCount]);
 	}

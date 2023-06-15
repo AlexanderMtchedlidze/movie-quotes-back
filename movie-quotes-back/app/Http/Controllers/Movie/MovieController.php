@@ -7,6 +7,7 @@ use App\Http\Requests\Movie\StoreMovieRequest;
 use App\Http\Resources\MovieResource;
 use App\Models\Movie;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 
 class MovieController extends Controller
 {
@@ -27,7 +28,10 @@ class MovieController extends Controller
 			->withCount('quotes')
 			->get();
 
-		return MovieResource::collection($movies);
+		return response()->json([
+			'count'  => $movies->count(),
+			'movies' => MovieResource::collection($movies),
+		]);
 	}
 
 	public function addMovie(StoreMovieRequest $request)
@@ -53,7 +57,10 @@ class MovieController extends Controller
 
 		$movie->loadCount('quotes');
 
-		return response()->json(['movie' => new MovieResource($movie)]);
+		return response()->json([
+			'movie' => new MovieResource($movie),
+			'count' => auth()->user()->movies()->count(),
+		]);
 	}
 
 	public function filterMovies(String $query)
@@ -66,5 +73,15 @@ class MovieController extends Controller
 				->withCount('quotes')
 				->get()
 		);
+	}
+
+	public function getMovie(Movie $movie): JsonResponse
+	{
+		$movie->load('genres', 'quotes')->loadCount('quotes');
+		$movie->quotes->loadCount(['likes', 'comments']);
+
+		return response()->json([
+			'movie' => new MovieResource($movie),
+		]);
 	}
 }
