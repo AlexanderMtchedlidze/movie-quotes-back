@@ -25,6 +25,8 @@ class SocialiteGoogleController extends Controller
 			'name'                 => $googleUser->name,
 			'email'                => $googleUser->email,
 			'google_token'         => $googleUser->token,
+			'email_verified_at'    => now(),
+			'profile_image'        => 'default-profile-image.png',
 		]);
 
 		Auth::login($user);

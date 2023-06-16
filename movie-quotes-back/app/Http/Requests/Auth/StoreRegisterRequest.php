@@ -19,4 +19,18 @@ class StoreRegisterRequest extends FormRequest
 			'password' => 'required|min:8|max:15|regex:/^[a-z]+$/|confirmed',
 		];
 	}
+
+	public function messages()
+	{
+		return [
+			'name.unique' => [
+				'en' => 'Name must be unique',
+				'ka' => 'სახელი უნდა იყოს განსაკუთრებული',
+			],
+			'email.unique' => [
+				'en' => 'Email must be unique',
+				'ka' => 'ელფოსტა უნდა იყოს განსაკუთრებული',
+			],
+		];
+	}
 }

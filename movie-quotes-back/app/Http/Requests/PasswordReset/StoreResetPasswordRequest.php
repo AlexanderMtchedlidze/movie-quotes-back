@@ -19,4 +19,14 @@ class StoreResetPasswordRequest extends FormRequest
 			'password' => 'required|min:8|max:15|confirmed',
 		];
 	}
+
+	public function messages()
+	{
+		return [
+			'email.exists' => [
+				'en' => 'Email must exist',
+				'ka' => 'ელფოსტა უნდა არსებობდეს',
+			],
+		];
+	}
 }

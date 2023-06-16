@@ -17,4 +17,14 @@ class StoreForgotPasswordRequest extends FormRequest
 			'email' => 'required|email|exists:users,email',
 		];
 	}
+
+	public function messages()
+	{
+		return [
+			'email.exists' => [
+				'en' => 'Email must exist',
+				'ka' => 'ელფოსტა უნდა არსებობდეს',
+			],
+		];
+	}
 }

@@ -20,7 +20,7 @@ class UserController extends Controller
 		$user = $request->user();
 
 		if ($request->hasFile('profile_image')) {
-			$profileImagePath = $request->file('profile_image')->store('thumbnails');
+			$profileImagePath = $request->file('profile_image')->store();
 			$user->profile_image = $profileImagePath;
 		}
 

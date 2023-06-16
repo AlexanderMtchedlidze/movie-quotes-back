@@ -6,6 +6,7 @@ use App\Notifications\ResetPasswordNotification;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -64,5 +65,20 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 		$url = config('app.vite_app_url') . '?token=' . $token . '&email=' . $this->email;
 
 		$this->notify(new ResetPasswordNotification($url, $this->name, $this->email));
+	}
+
+	public function movies(): HasMany
+	{
+		return $this->hasMany(Movie::class);
+	}
+
+	public function notifications(): HasMany
+	{
+		return $this->hasMany(Notification::class, 'receiver_id');
+	}
+
+	public function unreadNotifications(): HasMany
+	{
+		return $this->hasMany(Notification::class, 'receiver_id')->where('read', false);
 	}
 }

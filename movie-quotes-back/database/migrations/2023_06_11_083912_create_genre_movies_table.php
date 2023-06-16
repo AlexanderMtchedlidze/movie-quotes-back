@@ -10,15 +10,11 @@ return new class extends Migration {
 	 */
 	public function up(): void
 	{
-		Schema::create('movies', function (Blueprint $table) {
+		Schema::create('genre_movies', function (Blueprint $table) {
 			$table->id();
+			$table->foreignId('genre_id')->constrained()->cascadeOnDelete();
+			$table->foreignId('movie_id')->constrained()->cascadeOnDelete();
 			$table->timestamps();
-			$table->foreignId('user_id')->constrained()->cascadeOnDelete();
-			$table->string('movie');
-			$table->string('thumbnail');
-			$table->integer('year');
-			$table->string('director');
-			$table->string('description');
 		});
 	}
 
@@ -27,6 +23,6 @@ return new class extends Migration {
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists('movies');
+		Schema::dropIfExists('genre_movies');
 	}
 };

@@ -20,7 +20,14 @@ class SessionController extends Controller
 			->first();
 
 		if (!$user || !Hash::check($attributes['password'], $user->password)) {
-			throw ValidationException::withMessages(['username' => 'The credentials you entered are incorrect']);
+			$errorMessages = [
+				'username' => [
+					'en' => 'The credentials you entered are incorrect',
+					'ka' => 'შეყვანილი მონაცემები არასწორია',
+				],
+			];
+
+			throw ValidationException::withMessages($errorMessages);
 		}
 
 		Auth::login($user, $request->filled('remember-me'));

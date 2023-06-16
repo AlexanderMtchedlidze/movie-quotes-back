@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Quote;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreQuoteRequest extends FormRequest
 {
@@ -14,10 +15,33 @@ class StoreQuoteRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'quote_en'  => 'required',
-			'quote_ka'  => 'required',
-			'thumbnail' => 'required|image',
-			'movie_id'  => 'required|exists:movies,id',
+			'quote_en'    => [
+				'required',
+				Rule::unique('quotes', 'quote->en'),
+			],
+			'quote_ka'    => [
+				'required',
+				Rule::unique('quotes', 'quote->en')],
+			'thumbnail'   => 'required|image',
+			'movie_id'    => 'required|exists:movies,id',
+		];
+	}
+
+	public function messages(): array
+	{
+		return [
+			'quote_en.unique' => [
+				'en' => 'English quote must be unique',
+				'ka' => 'ინგლისურის ციტატა უნდა იყოს განსაკუთრებული',
+			],
+			'quote_ka.unique' => [
+				'en' => 'Georgian quote must be unique',
+				'ka' => 'ქართული ციტატა უნდა იყოს განსაკუთრებული',
+			],
+			'thumbnail.image' => [
+				'en' => 'Image must be an image',
+				'ka' => 'ფოტო უნდა იყოს ფოტო',
+			],
 		];
 	}
 }

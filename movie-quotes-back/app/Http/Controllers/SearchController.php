@@ -16,7 +16,7 @@ class SearchController extends Controller
 			Quote::filter(['quote' => $query])
 				->orderByDesc('created_at')
 				->with('author', 'movie', 'comments', 'likes')
-				->get()
+				->paginate()
 		);
 	}
 
@@ -26,7 +26,7 @@ class SearchController extends Controller
 			Quote::filter(['movie' => $query])
 				->orderByDesc('created_at')
 				->with('author', 'movie', 'comments', 'likes')
-				->get()
+				->paginate()
 		);
 	}
 }
