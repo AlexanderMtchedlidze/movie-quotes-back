@@ -38,11 +38,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 	Route::post('/quote/add', [QuoteController::class, 'addQuote']);
 
 	Route::prefix('/quote/{quote}')->group(function () {
+		Route::get('/', [QuoteController::class, 'getQuote']);
 		Route::post('/like', [LikeController::class, 'likeQuote']);
 		Route::post('/comment', [CommentController::class, 'addComment']);
+		Route::post('/delete', [QuoteController::class, 'deleteQuote']);
 	});
 
-	Route::get('/movie/{movie}', [MovieController::class, 'getMovie']);
+	Route::prefix('/movie/{movie}')->group(function () {
+		Route::get('/', [MovieController::class, 'getMovie']);
+		Route::post('/delete', [MovieController::class, 'deleteMovie']);
+	});
 
 	Route::prefix('/movies')->group(function () {
 		Route::get('/', [MovieController::class, 'getAllMovies']);

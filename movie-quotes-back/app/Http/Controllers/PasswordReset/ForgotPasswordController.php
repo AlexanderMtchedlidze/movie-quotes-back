@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends Controller
 {
-	public function __invoke(StoreForgotPasswordRequest $request)
+	public function __invoke(StoreForgotPasswordRequest $request): void
 	{
 		Password::sendResetLink($request->validated());
 	}

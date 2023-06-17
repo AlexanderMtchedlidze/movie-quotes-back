@@ -11,10 +11,11 @@ use App\Models\Comment;
 use App\Models\Notification;
 use App\Models\Quote;
 use App\Policies\NotificationPolicy;
+use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
 {
-	public function addComment(StoreCommentRequest $request, Quote $quote)
+	public function addComment(StoreCommentRequest $request, Quote $quote): JsonResponse
 	{
 		$notificationPolicy = new NotificationPolicy();
 

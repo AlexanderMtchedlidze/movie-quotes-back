@@ -7,7 +7,9 @@ use App\Http\Requests\Movie\StoreMovieRequest;
 use App\Http\Resources\MovieResource;
 use App\Models\Movie;
 use App\Models\User;
+use App\Policies\MoviePolicy;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class MovieController extends Controller
 {
@@ -34,7 +36,7 @@ class MovieController extends Controller
 		]);
 	}
 
-	public function addMovie(StoreMovieRequest $request)
+	public function addMovie(StoreMovieRequest $request): JsonResponse
 	{
 		$attributes = $request->validated();
 
@@ -63,7 +65,7 @@ class MovieController extends Controller
 		]);
 	}
 
-	public function filterMovies(String $query)
+	public function filterMovies(String $query): AnonymousResourceCollection
 	{
 		$movies = auth()->user()->movies();
 
@@ -83,5 +85,13 @@ class MovieController extends Controller
 		return response()->json([
 			'movie' => new MovieResource($movie),
 		]);
+	}
+
+	public function deleteMovie(Movie $movie): void
+	{
+		$moviePolicy = new MoviePolicy($movie);
+		if ($moviePolicy->destroy()) {
+			$movie->delete();
+		}
 	}
 }
