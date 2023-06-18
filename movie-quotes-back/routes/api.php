@@ -42,11 +42,13 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 		Route::post('/like', [LikeController::class, 'likeQuote']);
 		Route::post('/comment', [CommentController::class, 'addComment']);
 		Route::post('/delete', [QuoteController::class, 'deleteQuote']);
+		Route::post('/edit', [QuoteController::class, 'editQuote']);
 	});
 
 	Route::prefix('/movie/{movie}')->group(function () {
 		Route::get('/', [MovieController::class, 'getMovie']);
 		Route::post('/delete', [MovieController::class, 'deleteMovie']);
+		Route::post('/edit', [MovieController::class, 'editMovie']);
 	});
 
 	Route::prefix('/movies')->group(function () {

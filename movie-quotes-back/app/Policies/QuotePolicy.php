@@ -15,6 +15,12 @@ class QuotePolicy
 	{
 	}
 
+	public function update(User $user): bool
+	{
+		return $user->id === $this->quote->author->id
+			|| $user->id === $this->movie->author->id;
+	}
+
 	public function delete(User $user): bool
 	{
 		return $user->id === $this->quote->author->id

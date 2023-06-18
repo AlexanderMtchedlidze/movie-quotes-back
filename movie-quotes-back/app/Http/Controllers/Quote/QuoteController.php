@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Quote;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Quote\StoreQuoteRequest;
-use App\Http\Resources\MovieResource;
+use App\Http\Requests\Quote\UpdateQuoteRequest;
 use App\Http\Resources\QuoteResource;
 use App\Models\Quote;
 use App\Policies\QuotePolicy;
@@ -45,7 +45,7 @@ class QuoteController extends Controller
 
 		return response()->json([
 			'quote' => new QuoteResource($quote),
-			'movie' => new MovieResource($quote->movie),
+			'count' => $quote->movie->quotes()->count(),
 		]);
 	}
 
@@ -61,5 +61,26 @@ class QuoteController extends Controller
 		return response()->json([
 			'count' => $movie->quotes()->count(),
 		]);
+	}
+
+	public function editQuote(Quote $quote, UpdateQuoteRequest $request): JsonResponse
+	{
+		$attributes = $request->validated();
+
+		$quotePolicy = new QuotePolicy($quote, $quote->movie);
+		if ($quotePolicy->update(auth()->user())) {
+			$quote->update([
+				'quote' => [
+					'en' => $attributes['quote_en'],
+					'ka' => $attributes['quote_ka'],
+				],
+			]);
+		}
+
+		if ($request->hasFile('thumbnail')) {
+			$quote->thumbnail = $request->file('thumbnail')->store('thumbnails');
+		}
+
+		return response()->json(['quote' => new QuoteResource($quote)]);
 	}
 }
