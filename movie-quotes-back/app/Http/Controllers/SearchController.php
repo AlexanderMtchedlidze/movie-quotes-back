@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\QuoteResource;
 use App\Models\Quote;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class SearchController extends Controller
 {
 	/**
 	 * Handle the incoming request.
 	 */
-	public function filterQuotes(String $query)
+	public function filterQuotes(String $query): AnonymousResourceCollection
 	{
 		return QuoteResource::collection(
 			Quote::filter(['quote' => $query])
@@ -20,7 +21,7 @@ class SearchController extends Controller
 		);
 	}
 
-	public function filterMovies(String $query)
+	public function filterMovies(String $query): AnonymousResourceCollection
 	{
 		return QuoteResource::collection(
 			Quote::filter(['movie' => $query])

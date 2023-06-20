@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Movie;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Movie\StoreMovieRequest;
+use App\Http\Requests\Movie\UpdateMovieRequest;
 use App\Http\Resources\MovieResource;
 use App\Models\Movie;
 use App\Models\User;
+use App\Policies\MoviePolicy;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class MovieController extends Controller
 {
@@ -34,7 +37,7 @@ class MovieController extends Controller
 		]);
 	}
 
-	public function addMovie(StoreMovieRequest $request)
+	public function addMovie(StoreMovieRequest $request): JsonResponse
 	{
 		$attributes = $request->validated();
 
@@ -63,7 +66,7 @@ class MovieController extends Controller
 		]);
 	}
 
-	public function filterMovies(String $query)
+	public function filterMovies(String $query): AnonymousResourceCollection
 	{
 		$movies = auth()->user()->movies();
 
@@ -82,6 +85,52 @@ class MovieController extends Controller
 
 		return response()->json([
 			'movie' => new MovieResource($movie),
+		]);
+	}
+
+	public function deleteMovie(Movie $movie): void
+	{
+		$moviePolicy = new MoviePolicy($movie);
+		if ($moviePolicy->destroy()) {
+			$movie->delete();
+		}
+	}
+
+	public function editMovie(Movie $movie, UpdateMovieRequest $request): JsonResponse
+	{
+		$moviePolicy = new MoviePolicy($movie);
+		if ($moviePolicy->update()) {
+			$attributes = $request->validated();
+
+			$movieData = [
+				'movie' => [
+					'en' => $attributes['movie_en'],
+					'ka' => $attributes['movie_ka'],
+				],
+				'director' => [
+					'en' => $attributes['director_en'],
+					'ka' => $attributes['director_ka'],
+				],
+				'description' => [
+					'en' => $attributes['description_en'],
+					'ka' => $attributes['description_ka'],
+				], 'year' => $attributes['year'],
+			];
+
+			if ($request->hasFile('thumbnail')) {
+				$movieData['thumbnail'] = $request->file('thumbnail')->store('thumbnails');
+			}
+
+			$movie->update($movieData);
+
+			$genreIds = $attributes['genre_ids'];
+			$movie->genres()->sync($genreIds);
+
+			$movie->load('genres', 'quotes')->loadCount('quotes');
+		}
+		return response()->json([
+			'movie' => new MovieResource($movie),
+			'count' => auth()->user()->movies()->count(),
 		]);
 	}
 }
