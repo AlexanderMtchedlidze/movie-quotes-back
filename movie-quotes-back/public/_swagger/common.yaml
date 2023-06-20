@@ -1,4 +1,54 @@
 components:
+  requestBodies:
+    movieRequestBody:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              movie_ka:
+                type: string
+                example: ინტერსტელარი
+              movie_en:
+                type: string
+                example: Interstellar
+              thumbnail:
+                type: string
+                format: binary
+              description_en:
+                type: string
+                example: Interstellar is a 2014 epic science fiction film co-written, directed, and produced by Christopher Nolan. It stars Matthew McConaughey, Anne Hathaway, Jessica Chastain, Bill Irwin, Ellen Burstyn, Matt Damon, and Michael Caine.
+              description_ka:
+                type: string
+                example: Interstellar არის 2014 წლის ეპიკური სამეცნიერო ფანტასტიკის ფილმი, რომლის თანადაწერილი, რეჟისორი და პროდიუსერია კრისტოფერ ნოლანი. მასში მონაწილეობენ მეთიუ მაკკონაჰი, ენ ჰეთევეი, ჯესიკა ჩესტეინი, ბილ ირვინი, ელენ ბერსტინი, მეთ დეიმონი და მაიკლ კეინი.
+              director_ka:
+                type: string
+                example: ქრისტოფერ ნოლანი
+              director_en:
+                type: string
+                example: Christopher Nolan
+              year:
+                type: integer
+                example: 2014
+              genre_ids:
+                type: array
+                items:
+                  type: integer
+                example:
+                  - 1
+                  - 2
+                  - 3
+            required:
+              - movie_ka
+              - movie_en
+              - thumbnail
+              - description_en
+              - description_ka
+              - director_en
+              - director_ka
+              - year
+              - genre_ids
+
   parameters:
     id:
       name: id

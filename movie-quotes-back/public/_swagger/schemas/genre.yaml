@@ -1,0 +1,20 @@
+components:
+  schemas:
+    Genre:
+      allOf:
+        - $ref: "../common.yaml#/components/schemas/Id"
+        - type: object
+          properties:
+            genre:
+              type: string
+              example: Drama
+              pivot:
+                type: object
+                properties:
+                  movie_id:
+                    type: integer
+                    example: 1
+                  genre_id:
+                    type: integer
+                    example: 1
+        - $ref: "../common.yaml#/components/schemas/TimeStamps"

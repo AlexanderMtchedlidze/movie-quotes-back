@@ -123,8 +123,9 @@ class MovieController extends Controller
 
 			$movie->update($movieData);
 
-			$genreIds = $attributes['genre_ids'];
-			$movie->genres()->sync($genreIds);
+			if (isset($attributes['genre_ids'])) {
+				$movie->genres()->sync($attributes['genre_ids']);
+			}
 
 			$movie->load('genres', 'quotes')->loadCount('quotes');
 		}

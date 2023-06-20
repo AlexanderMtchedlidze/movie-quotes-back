@@ -25,7 +25,7 @@ class UpdateMovieRequest extends FormRequest
 			'director_ka'    => ['sometimes'],
 			'description_en' => ['sometimes'],
 			'description_ka' => ['sometimes'],
-			'genre_ids'      => ['array', 'min:1', Rule::exists('genres', 'id')],
+			'genre_ids'      => ['sometimes', 'array', 'min:1', Rule::exists('genres', 'id')],
 		];
 	}
 }

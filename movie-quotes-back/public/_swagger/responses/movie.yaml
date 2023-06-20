@@ -1,0 +1,34 @@
+components:
+  responses:
+    movie:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                movie:
+                  allOf:
+                    - $ref: "../schemas/movie.yaml#/components/schemas/Movie"
+                    - type: object
+                      properties:
+                        quotes:
+                          type: array
+                          items:
+                            $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+                        likes_count:
+                          type: integer
+                          example: 1
+                        comments_count:
+                          type: integer
+                          example: 1
+                        genres:
+                          type: array
+                          items:
+                            allOf:
+                              - $ref: "../schemas/genre.yaml#/components/schemas/Genre"
+                              - $ref: "../schemas/genre_movies.yaml#/components/schemas/GenreMovies"
+                        quotes_count:
+                          type: integer
+                          example: 1
