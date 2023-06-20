@@ -1,0 +1,23 @@
+components:
+  schemas:
+    Notification:
+      allOf:
+        - $ref: "../common.yaml#/components/schemas/Id"
+        - type: object
+          properties:
+            quote_id:
+              type: integer
+            sender_id:
+              type: integer
+            receiver_id:
+              type: integer
+            commented:
+              type: integer
+              default: 0
+            liked:
+              type: integer
+              default: 0
+            read:
+              type: integer
+            default: 0
+        - $ref: "../common.yaml#/components/schemas/TimeStamps"

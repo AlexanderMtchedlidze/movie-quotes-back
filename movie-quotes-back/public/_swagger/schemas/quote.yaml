@@ -1,0 +1,24 @@
+components:
+  schemas:
+    Quote:
+      allOf:
+        - $ref: "../common.yaml#/components/schemas/Id"
+        - type: object
+          properties:
+            user_id:
+              type: integer
+            movie_id:
+              type: integer
+            quote:
+              type: object
+              properties:
+                en:
+                  type: string
+                  example: You Said Science Was About Admitting What We Don't Know.
+                ka:
+                  type: string
+                  example: თქვენ თქვით, რომ მეცნიერება იყო იმის აღიარება, რაც ჩვენ არ ვიცით.
+            thumbnail:
+              type: string
+              example: interstellar.png
+        - $ref: "../common.yaml#/components/schemas/TimeStamps"

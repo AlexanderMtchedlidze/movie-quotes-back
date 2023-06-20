@@ -1,0 +1,12 @@
+components:
+  schemas:
+    Comment:
+      allOf:
+        - $ref: "../common.yaml#/components/schemas/Id"
+        - type: object
+          properties:
+            user_id:
+              type: integer
+            quote_id:
+              type: integer
+        - $ref: "../common.yaml#/components/schemas/TimeStamps"
