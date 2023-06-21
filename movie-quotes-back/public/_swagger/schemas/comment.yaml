@@ -5,10 +5,8 @@ components:
         - $ref: "../common.yaml#/components/schemas/Id"
         - type: object
           properties:
-            user_id:
-              type: integer
-              example: 1
-            quote_id:
-              type: integer
-              example: 1
-        - $ref: "../common.yaml#/components/schemas/TimeStamps"
+            comment:
+              type: string
+              example: awesome quote
+            author:
+              $ref: "../schemas/user.yaml#/components/schemas/User"

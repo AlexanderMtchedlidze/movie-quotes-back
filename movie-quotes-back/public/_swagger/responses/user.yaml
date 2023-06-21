@@ -1,0 +1,9 @@
+components:
+  responses:
+    user:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: "../schemas/user.yaml#/components/schemas/User"

@@ -5,7 +5,7 @@ components:
         - $ref: "../common.yaml#/components/schemas/Id"
         - type: object
           properties:
-            name: 
+            name:
               type: string
               example: Aleksandre Mtchedlidze
             email:
@@ -24,4 +24,3 @@ components:
             remember_token:
               type: string
               nullable: true
-        - $ref: "../common.yaml#/components/schemas/TimeStamps"

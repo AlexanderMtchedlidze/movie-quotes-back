@@ -1,0 +1,49 @@
+paths:
+  /user:
+    security:
+      - sanctumAuth: []
+    get:
+      tags:
+        - User
+      summary: Get user
+      responses:
+        "200":
+          $ref: "../responses/user.yaml#/components/responses/user/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /user/update:
+    security:
+      - sanctumAuth: []
+    post:
+      tags:
+        - User
+      summary: Update user
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: Alesandre Mtchedlidze
+                email:
+                  type: string
+                  example: aleksandre.mtchedlidze@redberry.ge
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+                profile_image:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: "../schemas/user.yaml#/components/schemas/User"
+

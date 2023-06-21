@@ -19,8 +19,8 @@ paths:
         - Movies
       summary: Create a movie
       requestBody:
-        required: true
         $ref: "../common.yaml#/components/requestBodies/movieRequestBody"
+        required: true
       responses:
         "200":
           content:

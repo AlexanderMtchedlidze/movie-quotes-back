@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Quote;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateQuoteRequest extends FormRequest
 {
@@ -13,10 +14,12 @@ class UpdateQuoteRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
+		$quoteId = $this->route('quote');
+
 		return [
 			'movie_id'  => 'required|exists:movies,id',
-			'quote_en'  => 'unique:quotes,quote->en',
-			'quote_ka'  => 'unique:quotes,quote->ka',
+			'quote_en'  => Rule::unique('quotes', 'quote->en')->ignore($quoteId),
+			'quote_ka'  => Rule::unique('quotes', 'quote->ka')->ignore($quoteId),
 			'thumbnail' => 'image',
 		];
 	}

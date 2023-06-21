@@ -38,16 +38,24 @@ components:
                   - 1
                   - 2
                   - 3
-            required:
-              - movie_ka
-              - movie_en
-              - thumbnail
-              - description_en
-              - description_ka
-              - director_en
-              - director_ka
-              - year
-              - genre_ids
+    quoteRequestBody:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+                quote_en:
+                  type: string
+                  example: I'm gonna make an offer he can't refuse
+                quote_ka:
+                  type: string
+                  example: რა მაქნისია გზა, თუ ტაძართან არ მიმიყვანს?
+                thumbnail:
+                  type: string
+                  format: binary
+                movie_id:
+                  type: integer
+                  example: 1
 
   parameters:
     id:
