@@ -36,7 +36,7 @@ class SessionController extends Controller
 
 	public function logout(): void
 	{
-		auth()->logout();
+        Auth::logout();
 
 		session()->regenerate();
 	}

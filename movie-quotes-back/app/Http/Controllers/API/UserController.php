@@ -25,9 +25,7 @@ class UserController extends Controller
 		}
 
 		if (isset($attributes['email'])) {
-			$user->email_verified_at = null;
-			$user->email = $attributes['email'];
-			$user->notify(new CustomVerifyEmail($user->generateVerificationUrl(), $user->name));
+            $user->notify(new CustomVerifyEmail($user->generateVerificationUrl($attributes['email']), $user->name));
 		}
 
 		if (isset($attributes['username'])) {
