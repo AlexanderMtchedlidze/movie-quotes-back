@@ -1,0 +1,20 @@
+components:
+  responses:
+    login:
+      "200":
+        description: OK
+    register:
+      "200":
+        description: OK
+    logout:
+      "200":
+        description: OK
+    forgot-password:
+      "200":
+        description: OK
+    reset-password:
+      "200":
+        description: OK
+    email/verify:
+      "200":
+        description: OK

@@ -1,0 +1,25 @@
+paths:
+  /quotes/{query}:
+    security:
+      - sanctumAuth: []
+    get:
+      tags:
+        - Search
+      summary: Filter quotes
+      responses:
+        "200":
+          $ref: "../responses/quotes.yaml#/components/responses/quotes/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /movies/{query}:
+    security:
+      - sanctumAuth: [ ]
+    get:
+      tags:
+        - Search
+      summary: Filter movies
+      responses:
+        "200":
+          $ref: "../responses/movies.yaml#/components/responses/movies/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"

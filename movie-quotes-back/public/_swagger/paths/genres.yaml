@@ -1,0 +1,13 @@
+paths:
+  /genres:
+    security:
+      - sanctumAuth: []
+    get:
+      tags:
+        - Genres
+      summary: Get list of genres
+      responses:
+        "200":
+          $ref: "../responses/genres.yaml#/components/responses/genres/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"

@@ -58,30 +58,30 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 		Route::get('/search/{query}', [MovieController::class, 'filterMovies']);
 	});
 
-	Route::get('/genres', [GenreController::class, 'getAllGenres']);
+    Route::get('/genres', [GenreController::class, 'getAllGenres']);
+    
+    Route::prefix('/search')->group(function () {
+        Route::get('/quotes/{query}', [SearchController::class, 'filterQuotes']);
+        Route::get('/movies/{query}', [SearchController::class, 'filterMovies']);
+    });
 
-	Route::prefix('/search')->group(function () {
-		Route::get('/quotes/{query}', [SearchController::class, 'filterQuotes']);
-		Route::get('/movies/{query}', [SearchController::class, 'filterMovies']);
-	});
+    Route::prefix('/notifications')->group(function () {
+        Route::get('/', [NotificationController::class, 'getAllNotifications']);
+        Route::post('/mark-all-as-read', [NotificationController::class, 'markAllAsRead']);
+    });
 
-	Route::prefix('/notifications')->group(function () {
-		Route::get('/', [NotificationController::class, 'getAllNotifications']);
-		Route::get('/unread', [NotificationController::class, 'getUnreadNotifications']);
-		Route::post('/mark-all-as-read', [NotificationController::class, 'markAllAsRead']);
-	});
+    Route::post('/notification/{notification}/mark-as-read', [NotificationController::class, 'markNotificationAsRead']);
 
-	Route::post('/notification/{notification}/mark-as-read', [NotificationController::class, 'markNotificationAsRead']);
+    Route::post('/login', [SessionController::class, 'login']);
+    Route::post('/logout', [SessionController::class, 'logout']);
+
+    Route::post('/register', RegisterController::class);
+    Route::get('/email/verify/{id}/{hash}', EmailVerificationController::class)
+        ->name('verification.verify');
+
+    Route::post('/forgot-password', ForgotPasswordController::class)->name('password.email');
+    Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
+
+    Route::get('/auth/google/redirect', [SocialiteGoogleController::class, 'handleRedirect']);
+
 });
-
-Route::post('/login', [SessionController::class, 'login']);
-Route::post('/logout', [SessionController::class, 'logout']);
-
-Route::post('/register', RegisterController::class);
-Route::get('/email/verify/{id}/{hash}', EmailVerificationController::class)
-	->name('verification.verify');
-
-Route::post('/forgot-password', ForgotPasswordController::class)->name('password.email');
-Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
-
-Route::get('/auth/google/redirect', [SocialiteGoogleController::class, 'handleRedirect']);

@@ -41,6 +41,30 @@ paths:
       $ref: "./_swagger/paths/user.yaml#/paths/~1user"
   /user/update:
       $ref: "./_swagger/paths/user.yaml#/paths/~1user~1update"
+  /genres:
+      $ref: "./_swagger/paths/genres.yaml#/paths/~1genres"
+  /logout:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1logout"
+  /register:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1register"
+  /login:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1login"
+  /forgot-password:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1forgot-password"
+  /reset-password:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1reset-password"
+  /email/verify/{id}/{hash}:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1email~1verify~1{id}~1{hash}"
+  /notifications:
+    $ref: "./_swagger/paths/notifications.yaml#/paths/~1notifications"
+  /notifications/mark-all-as-read:
+    $ref: "./_swagger/paths/notifications.yaml#/paths/~1notifications~1mark-all-as-read"
+  /notification/{notification}/mark-as-read:
+    $ref: "./_swagger/paths/notifications.yaml#/paths/~1notification~1{notification}~1mark-as-read"
+  /search/quotes/{query}:
+    $ref: "./_swagger/paths/search.yaml#/paths/~1quotes~1{query}"
+  /search/movies/{query}:
+    $ref: "./_swagger/paths/search.yaml#/paths/~1movies~1{query}"
 components:
   securitySchemes:
     santcumAuth:

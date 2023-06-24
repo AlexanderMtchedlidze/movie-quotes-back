@@ -3,10 +3,9 @@ components:
     Genre:
       allOf:
         - $ref: "../common.yaml#/components/schemas/Id"
+        - $ref: "../schemas/genre_movies.yaml#/components/schemas/GenreMovies"
         - type: object
           properties:
-            allOf:
-              - $ref "../schemas/genre_movies.yaml#/components/schemas/GenreMovies"
-              - genre:
-                type: string
-                example: Drama
+            genre:
+              type: string
+              example: Drama
