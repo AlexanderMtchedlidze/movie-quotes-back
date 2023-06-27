@@ -65,6 +65,10 @@ paths:
     $ref: "./_swagger/paths/search.yaml#/paths/~1quotes~1{query}"
   /search/movies/{query}:
     $ref: "./_swagger/paths/search.yaml#/paths/~1movies~1{query}"
+  /get-email-verification/{email}:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1get-email-verification~1{email}"
+  /is-password-verification-expired:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1is-password-verification-expired"
 components:
   securitySchemes:
     santcumAuth:

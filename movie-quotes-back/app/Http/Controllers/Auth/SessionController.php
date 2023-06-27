@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
 {
-	public function login(StoreSessionRequest $request)
+	public function login(StoreSessionRequest $request): void
 	{
 		$attributes = $request->validated();
 
@@ -36,7 +36,7 @@ class SessionController extends Controller
 
 	public function logout(): void
 	{
-        Auth::logout();
+		Auth::logout();
 
 		session()->regenerate();
 	}

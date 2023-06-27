@@ -3,18 +3,118 @@ components:
     login:
       "200":
         description: OK
+      "422":
+        description: Unprocessable content
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                errors:
+                  type: object
+                  properties:
+                    username:
+                      type: array
+                      items:
+                        type: string
+              example:
+                message: The credentials you entered are incorrect
+                errors:
+                  username:
+                    - The credentials you entered are incorrect
+                    - შეყვანილი ინფორმაცია არასწორია
     register:
       "200":
         description: OK
+      "422":
+        description: Unprocessable content
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                errors:
+                  type: object
+                  properties:
+                    email:
+                      type: array
+                      items:
+                        type: string
+              example:
+                message: The given data was invalid
+                errors:
+                  email:
+                    - The email must be unique
+                    - იმეილი უნდა იყოს განსაკუთრებული
     logout:
       "200":
         description: OK
     forgot-password:
       "200":
         description: OK
+      "422":
+        description: Unprocessable content
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                errors:
+                  type: object
+                  properties:
+                    email:
+                      type: array
+                      items:
+                        type: string
+              example:
+                message: The given data was invalid
+                errors:
+                  email:
+                    - The email must exist
+                    - იმეილი უნდა არსებობდეს
     reset-password:
       "200":
         description: OK
     email/verify:
       "200":
         description: OK
+      "419":
+        description: Invalid signature
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  example: Registration verification link has been expired
+    get-email-verification:
+      "200":
+        description: OK
+    is-password-verification-expired:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expired:
+                  type: boolean
+                  example: false
+      "419":
+        description: Invalid signature
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                error:
+                  type: string
+                  example: Forgot password verification link has been expired

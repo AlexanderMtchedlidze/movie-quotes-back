@@ -88,6 +88,58 @@ components:
           example: "2022-07-26T20:06:02.000000Z"
           nullable: true
   responses:
+    movie:
+      "422":
+        description: Unprocessable content
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                errors:
+                  type: object
+                  properties:
+                    movie:
+                      type: array
+                      items:
+                        type: string
+              example:
+                message: The given data was invalid
+                errors:
+                  movie:
+                    type: object
+                    properties:
+                      en:
+                        Movie must be unique
+                      ka:
+                        ფილმი უნდა იყოს განსაკუთრებული
+    quote:
+      "422":
+        description: Unprocessable content
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                errors:
+                  type: object
+                  properties:
+                    movie:
+                      type: array
+                      items:
+                        type: string
+              example:
+                message: The given data was invalid
+                errors:
+                  quote:
+                    en:
+                      Quote must be unique
+                    ka:
+                      ციტატა უნდა იყოს განსაკუთრებული
     "401":
       description: Unauthenticated
       content:

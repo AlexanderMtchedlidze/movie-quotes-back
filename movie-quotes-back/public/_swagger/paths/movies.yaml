@@ -33,6 +33,8 @@ paths:
                   count:
                     type: integer
                     example: 1
+        "422":
+          $ref: "../common.yaml#/components/responses/movie/422"
   /movie/{user}:
       security:
         - sanctumAuth: [ ]

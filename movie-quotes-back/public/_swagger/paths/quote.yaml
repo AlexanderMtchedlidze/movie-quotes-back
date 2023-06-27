@@ -20,6 +20,8 @@ paths:
                   count:
                     type: integer
                     example: 1
+        "422":
+          $ref: "../common.yaml#/components/responses/quote/422"
   /quote/{quote}:
     security:
       - sanctumAuth: []
@@ -122,3 +124,5 @@ paths:
                     properties:
                       quote:
                         $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+        "422":
+          $ref: "../common.yaml#/components/responses/quote/422"

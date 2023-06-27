@@ -77,6 +77,8 @@ paths:
           $ref: "../responses/auth.yaml#/components/responses/login/200"
         "404":
           $ref: "../common.yaml#/components/responses/404"
+        "422":
+          $ref: "../responses/auth.yaml#/components/responses/login/422"
   /forgot-password:
     post:
       tags:
@@ -143,3 +145,26 @@ paths:
           $ref: "../responses/auth.yaml#/components/responses/email~1verify/200"
         "404":
           $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../responses/auth.yaml#/components/responses/email~1verify/419"
+  /get-email-verification/{email}:
+    post:
+      tags:
+        - Auth
+      summary: Send an email verification
+      responses:
+        "200":
+          $ref: "../responses/auth.yaml#/components/responses/get-email-verification/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /is-password-verification-expired:
+    get:
+      tags:
+        - Auth
+      responses:
+        "200":
+          $ref: "../responses/auth.yaml#/components/responses/is-password-verification-expired/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../responses/auth.yaml#/components/responses/is-password-verification-expired/419"

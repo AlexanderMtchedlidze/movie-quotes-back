@@ -56,3 +56,5 @@ paths:
                     example: 1
         "404":
           $ref: "../common.yaml#/components/responses/404"
+        "422":
+          $ref: "../common.yaml#/components/responses/movie/422"
