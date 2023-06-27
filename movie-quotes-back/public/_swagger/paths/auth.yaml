@@ -1,0 +1,170 @@
+paths:
+  /register:
+    post:
+      tags:
+        - Auth
+      summary: Register a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@example.com
+                name:
+                  type: string
+                  example: test
+                password:
+                  type: string
+                  example: password
+                password_confirmation:
+                  type: string
+                  example: password
+              required:
+                - name
+                - email
+                - password
+                - password_confirmation
+      responses:
+        "200":
+          $ref: "../responses/auth.yaml#/components/responses/register/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+
+  /logout:
+    security:
+      - sanctumAuth: []
+    get:
+      tags:
+        - Auth
+      summary: Logout a user
+      responses:
+        "200":
+          $ref: "../responses/auth.yaml#/components/responses/logout/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+
+  /login:
+    post:
+      tags:
+        - Auth
+      summary: Login a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: test@example.com or test
+                password:
+                  type: string
+                  example: password
+                password_confirmation:
+                  type: string
+                  example: password
+              required:
+                - name
+                - password
+                - password_confirmation
+      responses:
+        "200":
+          $ref: "../responses/auth.yaml#/components/responses/login/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+        "422":
+          $ref: "../responses/auth.yaml#/components/responses/login/422"
+  /forgot-password:
+    post:
+      tags:
+        - Auth
+      summary: Get an email after submitting forgot password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: test@example.com
+              required:
+                - name
+      responses:
+        "200":
+          $ref: "../responses/auth.yaml#/components/responses/forgot-password/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /reset-password:
+    post:
+      tags:
+        - Auth
+      summary: Reset password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: test@example.com
+                password:
+                  type: string
+                  example: password
+                password_confirmation:
+                  type: string
+                  example: password
+                token:
+                  type: integer
+                  example: 13448dc313eced04e14373ab2208cdedf03fd459cd2c628b55495178c10ad2e6
+              required:
+                - email
+                - password
+                - password_confirmation
+                - token
+      responses:
+        "200":
+          $ref: "../responses/auth.yaml#/components/responses/reset-password/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /email/verify/{id}/{hash}:
+    post:
+      tags:
+        - Auth
+      summary: Verify an email
+      responses:
+        "200":
+          $ref: "../responses/auth.yaml#/components/responses/email~1verify/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../responses/auth.yaml#/components/responses/email~1verify/419"
+  /get-email-verification/{email}:
+    post:
+      tags:
+        - Auth
+      summary: Send an email verification
+      responses:
+        "200":
+          $ref: "../responses/auth.yaml#/components/responses/get-email-verification/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /is-password-verification-expired:
+    get:
+      tags:
+        - Auth
+      responses:
+        "200":
+          $ref: "../responses/auth.yaml#/components/responses/is-password-verification-expired/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../responses/auth.yaml#/components/responses/is-password-verification-expired/419"

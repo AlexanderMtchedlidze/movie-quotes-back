@@ -1,0 +1,15 @@
+components:
+  schemas:
+    GenreMovies:
+      allOf:
+        - type: object
+          properties:
+            pivot:
+              type: object
+              properties:
+                movie_id:
+                  type: integer
+                  example: 1
+                genre_id:
+                  type: integer
+                  example: 1

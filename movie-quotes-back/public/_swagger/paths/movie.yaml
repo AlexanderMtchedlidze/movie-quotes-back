@@ -1,0 +1,60 @@
+paths:
+  /movie/{id}:
+    security:
+      - sanctumAuth: []
+    get:
+      tags:
+        - Movie
+      summary: Get a movie
+      responses:
+        "200":
+          $ref: "../responses/movie.yaml#/components/responses/movie/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /movie/{id}/delete:
+    security:
+      - sanctumAuth: [ ]
+    post:
+      tags:
+        - Movie
+      summary: Delete a movie
+      responses:
+        "200":
+          description: No Content
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /movie/{id}/edit:
+    security:
+      - sanctumAuth: [ ]
+    post:
+      tags:
+        - Movie
+      summary: Edit a movie
+      requestBody:
+        required: true
+        $ref: "../common.yaml#/components/requestBodies/movieRequestBody"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  movie:
+                    allOf:
+                      - $ref: "../schemas/movie.yaml#/components/schemas/Movie"
+                  quotes_count:
+                    type: integer
+                    example: 1
+                  quotes:
+                    type: array
+                    items:
+                      $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+                  count:
+                    type: integer
+                    example: 1
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+        "422":
+          $ref: "../common.yaml#/components/responses/movie/422"

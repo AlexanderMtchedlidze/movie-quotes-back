@@ -1,0 +1,13 @@
+paths:
+  /quotes:
+    security:
+      - sanctumAuth: []
+    get:
+      tags:
+        - Quotes
+      summary: Return all quotes
+      responses:
+        "200":
+          $ref: "../responses/quotes.yaml#/components/responses/quotes/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"

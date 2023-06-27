@@ -12,7 +12,7 @@ class RegisterController extends Controller
 	/**
 	 * Handle the incoming request.
 	 */
-	public function __invoke(StoreRegisterRequest $request)
+	public function __invoke(StoreRegisterRequest $request): void
 	{
 		$attributes = $request->validated();
 

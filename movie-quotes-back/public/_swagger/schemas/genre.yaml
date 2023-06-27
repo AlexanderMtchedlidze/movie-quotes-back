@@ -1,0 +1,11 @@
+components:
+  schemas:
+    Genre:
+      allOf:
+        - $ref: "../common.yaml#/components/schemas/Id"
+        - $ref: "../schemas/genre_movies.yaml#/components/schemas/GenreMovies"
+        - type: object
+          properties:
+            genre:
+              type: string
+              example: Drama

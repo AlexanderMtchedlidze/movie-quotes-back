@@ -1,0 +1,36 @@
+components:
+  schemas:
+    Quote:
+      type: object
+      properties:
+        quote:
+          allOf:
+            - $ref: "../common.yaml#/components/schemas/Id"
+            - type: object
+              properties:
+                author:
+                  $ref: "../schemas/user.yaml#/components/schemas/User"
+                comments:
+                  $ref: "../schemas/comment.yaml#/components/schemas/Comment"
+                comments_count:
+                  type: integer
+                  example: 1
+                likes:
+                  $ref: "../schemas/like.yaml#/components/schemas/Like"
+                likes_count:
+                  type: integer
+                  example: 1
+                movie:
+                  $ref: "../schemas/movie.yaml#/components/schemas/Movie"
+                quote:
+                  type: object
+                  properties:
+                    en:
+                      type: string
+                      example: "I'm gonna make him an offer he can't refuse"
+                    ka:
+                      type: string
+                      example: "მაშ რა გზაა, ეკლესიასთან თუ არ მიმიყვანს"
+                thumbnail:
+                  type: string
+                  example: "public/storage/thumbnails/interstellar.png"

@@ -1,0 +1,37 @@
+paths:
+  /notifications:
+    security:
+      - sanctumAuth: []
+    get:
+      tags:
+        - Notifications
+      summary: Return all notifications
+      responses:
+        "200":
+          $ref: "../responses/notifications.yaml#/components/responses/notifications/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /notifications/mark-all-as-read:
+    security:
+      - sanctumAuth: [ ]
+    post:
+      tags:
+        - Notifications
+      summary: Mark all notifications as read
+      responses:
+        "200":
+          $ref: "../responses/notifications.yaml#/components/responses/mark-all-as-read/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /notification/{notification}/mark-as-read:
+    security:
+      - sanctumAuth: [ ]
+    post:
+      tags:
+        - Notifications
+      summary: Mark specific notification as read
+      responses:
+        "200":
+          $ref: "../responses/notifications.yaml#/components/responses/mark-as-read/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"

@@ -1,0 +1,12 @@
+components:
+  schemas:
+    Comment:
+      allOf:
+        - $ref: "../common.yaml#/components/schemas/Id"
+        - type: object
+          properties:
+            comment:
+              type: string
+              example: awesome quote
+            author:
+              $ref: "../schemas/user.yaml#/components/schemas/User"

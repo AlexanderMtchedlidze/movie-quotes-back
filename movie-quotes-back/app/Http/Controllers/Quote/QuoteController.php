@@ -81,6 +81,10 @@ class QuoteController extends Controller
 			$quote->thumbnail = $request->file('thumbnail')->store('thumbnails');
 		}
 
+		$quote->save();
+
+		$quote->load('author', 'movie', 'comments', 'likes');
+
 		return response()->json(['quote' => new QuoteResource($quote)]);
 	}
 }

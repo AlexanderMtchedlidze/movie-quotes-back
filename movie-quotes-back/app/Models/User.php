@@ -55,14 +55,32 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 		$this->attributes['password'] = bcrypt($password);
 	}
 
-	public function generateVerificationUrl(): string
+	public function generateVerificationUrl(string $email = null): string
 	{
-		return config('app.vite_app_url') . '?id=' . $this->id . '&hash=' . sha1($this->email);
+		$email = $email ?? $this->email;
+
+		$url = config('app.vite_app_url') . '?id=' . $this->id . '&hash=' . sha1($email);
+
+		$expiration = now()->addWeek()->timestamp;
+
+		session()->put('registration_verification_expiration', $expiration);
+
+		if ($email !== $this->email) {
+			$url .= '&email=' . urlencode($email);
+		} else {
+			$url .= '&email=' . urlencode($this->email);
+		}
+
+		return $url;
 	}
 
 	public function sendPasswordResetNotification($token): void
 	{
 		$url = config('app.vite_app_url') . '?token=' . $token . '&email=' . $this->email;
+
+		$expiration = now()->addWeek()->timestamp;
+
+		session()->put('forgot_password_verification_expiration', $expiration);
 
 		$this->notify(new ResetPasswordNotification($url, $this->name, $this->email));
 	}

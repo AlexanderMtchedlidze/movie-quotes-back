@@ -1,0 +1,24 @@
+components:
+  schemas:
+    Notification:
+      allOf:
+        - $ref: "../common.yaml#/components/schemas/Id"
+        - type: object
+          properties:
+            sender:
+              $ref: "../schemas/user.yaml#/components/schemas/User"
+            receiver:
+              $ref: "../schemas/user.yaml#/components/schemas/User"
+            commented:
+              type: integer
+              default: 0
+            liked:
+              type: integer
+              default: 0
+            read:
+              type: integer
+              default: 0
+            created_at:
+              type: string
+              example: "2022-07-26T20:06:02.000000Z"
+              nullable: true

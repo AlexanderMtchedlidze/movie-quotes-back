@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/auth/google/callback', [SocialiteGoogleController::class, 'handleCallback']);
+
+Route::get('/swagger', fn () => App::isProduction() ? response(status:403) : view('swagger'))->name('swagger');

@@ -1,0 +1,83 @@
+paths:
+  /movies:
+    security:
+        - sanctumAuth: []
+    get:
+      tags:
+        - Movies
+      summary: Return all movies
+      responses:
+        "200":
+          $ref: "../responses/movies.yaml#/components/responses/movies/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /movies/add:
+    security:
+      - sanctumAuth: [ ]
+    post:
+      tags:
+        - Movies
+      summary: Create a movie
+      requestBody:
+        $ref: "../common.yaml#/components/requestBodies/movieRequestBody"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  movie:
+                    $ref: "../schemas/movie.yaml#/components/schemas/Movie"
+                  count:
+                    type: integer
+                    example: 1
+        "422":
+          $ref: "../common.yaml#/components/responses/movie/422"
+  /movie/{user}:
+      security:
+        - sanctumAuth: [ ]
+      post:
+        tags:
+          - Movies
+        summary: Get only user specific movies
+        responses:
+          "200":
+            description: Successful response
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    movies:
+                      type: array
+                      items:
+                        allOf:
+                          - $ref: "../schemas/movie.yaml#/components/schemas/Movie"
+                    count:
+                      type: integer
+                      example: 1
+          "404":
+            $ref: "../common.yaml#/components/responses/404"
+  /movies/search/{query}:
+    security:
+      - sanctumAuth: [ ]
+    post:
+      tags:
+        - Movies
+      summary: Get query-filtered movies
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "../schemas/movie.yaml#/components/schemas/Movie"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"

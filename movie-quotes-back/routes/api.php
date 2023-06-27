@@ -31,6 +31,9 @@ Route::middleware('auth:sanctum')->group(function () {
 	Route::get('/user', [UserController::class, 'getUser']);
 });
 
+Route::post('/get-email-verification/{email}', [UserController::class, 'getEmailVerification']);
+Route::get('/is-password-verification-expired', [ForgotPasswordController::class, 'checkExpirationValidity']);
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 	Route::post('/user/update', [UserController::class, 'updateUser']);
 
@@ -67,7 +70,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 	Route::prefix('/notifications')->group(function () {
 		Route::get('/', [NotificationController::class, 'getAllNotifications']);
-		Route::get('/unread', [NotificationController::class, 'getUnreadNotifications']);
 		Route::post('/mark-all-as-read', [NotificationController::class, 'markAllAsRead']);
 	});
 
@@ -81,7 +83,7 @@ Route::post('/register', RegisterController::class);
 Route::get('/email/verify/{id}/{hash}', EmailVerificationController::class)
 	->name('verification.verify');
 
-Route::post('/forgot-password', ForgotPasswordController::class)->name('password.email');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 
 Route::get('/auth/google/redirect', [SocialiteGoogleController::class, 'handleRedirect']);

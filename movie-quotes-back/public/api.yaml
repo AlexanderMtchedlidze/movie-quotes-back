@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: Movie Quotes Upgraded API
+  description: Quotes from movies - is a platform where users can first register, then login and view quotes from movies.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/api
+    description: local server
+  - url: https://movie-quotes-back.aleqsandre-mchedlidze.redberryinternship.ge/api
+    description: production server
+paths:
+  /quotes:
+    $ref: "./_swagger/paths/quotes.yaml#/paths/~1quotes"
+  /quote/add:
+    $ref: "./_swagger/paths/quote.yaml#/paths/~1quote~1add"
+  /quote/{quote}:
+    $ref: "./_swagger/paths/quote.yaml#/paths/~1quote~1{quote}"
+  /quote/{quote}/like:
+    $ref: "./_swagger/paths/quote.yaml#/paths/~1quote~1{quote}~1like"
+  /quote/{quote}/comment:
+    $ref: "./_swagger/paths/quote.yaml#/paths/~1quote~1{quote}~1comment"
+  /quote/{quote}/delete:
+    $ref: "./_swagger/paths/quote.yaml#/paths/~1quote~1{quote}~1delete"
+  /quote/{quote}/edit:
+    $ref: "./_swagger/paths/quote.yaml#/paths/~1quote~1{quote}~1edit"
+  /movies:
+    $ref: "./_swagger/paths/movies.yaml#/paths/~1movies"
+  /movies/add:
+    $ref: "./_swagger/paths/movies.yaml#/paths/~1movies~1add"
+  /movies/{user}:
+      $ref: "./_swagger/paths/movies.yaml#/paths/~1movie~1{user}"
+  /movies/search/{query}:
+    $ref: "./_swagger/paths/movies.yaml#/paths/~1movies~1search~1{query}"
+  /movie/{id}:
+    $ref: "./_swagger/paths/movie.yaml#/paths/~1movie~1{id}"
+  /movie/{id}/delete:
+      $ref: "./_swagger/paths/movie.yaml#/paths/~1movie~1{id}~1delete"
+  /movie/{id}/edit:
+      $ref: "./_swagger/paths/movie.yaml#/paths/~1movie~1{id}~1edit"
+  /user:
+      $ref: "./_swagger/paths/user.yaml#/paths/~1user"
+  /user/update:
+      $ref: "./_swagger/paths/user.yaml#/paths/~1user~1update"
+  /genres:
+      $ref: "./_swagger/paths/genres.yaml#/paths/~1genres"
+  /logout:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1logout"
+  /register:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1register"
+  /login:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1login"
+  /forgot-password:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1forgot-password"
+  /reset-password:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1reset-password"
+  /email/verify/{id}/{hash}:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1email~1verify~1{id}~1{hash}"
+  /notifications:
+    $ref: "./_swagger/paths/notifications.yaml#/paths/~1notifications"
+  /notifications/mark-all-as-read:
+    $ref: "./_swagger/paths/notifications.yaml#/paths/~1notifications~1mark-all-as-read"
+  /notification/{notification}/mark-as-read:
+    $ref: "./_swagger/paths/notifications.yaml#/paths/~1notification~1{notification}~1mark-as-read"
+  /search/quotes/{query}:
+    $ref: "./_swagger/paths/search.yaml#/paths/~1quotes~1{query}"
+  /search/movies/{query}:
+    $ref: "./_swagger/paths/search.yaml#/paths/~1movies~1{query}"
+  /get-email-verification/{email}:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1get-email-verification~1{email}"
+  /is-password-verification-expired:
+    $ref: "./_swagger/paths/auth.yaml#/paths/~1is-password-verification-expired"
+components:
+  securitySchemes:
+    santcumAuth:
+      type: apiKey
+      in: cookie
+      name: X-CSRF-TOKEN
+  schemas:
+    User:
+      allOf:
+        - $ref: "./_swagger/schemas/user.yaml#/components/schemas/User"
+    Comment:
+      allOf:
+        - $ref: "./_swagger/schemas/comment.yaml#/components/schemas/Comment"
+    Genre:
+      allOf:
+        - $ref: "./_swagger/schemas/genre.yaml#/components/schemas/Genre"
+    Like:
+      allOf:
+        - $ref: "./_swagger/schemas/like.yaml#/components/schemas/Like"
+    Movie:
+      allOf:
+        - $ref: "./_swagger/schemas/movie.yaml#/components/schemas/Movie"
+    Notification:
+      allOf:
+        - $ref: "./_swagger/schemas/notification.yaml#/components/schemas/Notification"
+    Quote:
+      allOf:
+        - $ref: "./_swagger/schemas/quote.yaml#/components/schemas/Quote"
+    GenreMovies:
+      allOf:
+        - $ref: "./_swagger/schemas/genre_movies.yaml#/components/schemas/GenreMovies"

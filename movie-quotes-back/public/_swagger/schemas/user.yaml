@@ -1,0 +1,26 @@
+components:
+  schemas:
+    User:
+      allOf:
+        - $ref: "../common.yaml#/components/schemas/Id"
+        - type: object
+          properties:
+            name:
+              type: string
+              example: Aleksandre Mtchedlidze
+            email:
+              type: string
+              example: aleksandre.mtchedlidze@redberry.ge
+            email_verified_at:
+              type: string
+              example: "2023-06-19 09:14:46"
+              nullable: true
+            google_token:
+              type: string
+              nullable: true
+            profile_image:
+              type: string
+              example: 'default-profile-image.png'
+            remember_token:
+              type: string
+              nullable: true

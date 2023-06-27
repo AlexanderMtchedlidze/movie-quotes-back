@@ -1,0 +1,14 @@
+components:
+  responses:
+    genres:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: "../schemas/genre.yaml#/components/schemas/Genre"

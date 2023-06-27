@@ -1,0 +1,156 @@
+components:
+  requestBodies:
+    movieRequestBody:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              movie_ka:
+                type: string
+                example: ინტერსტელარი
+              movie_en:
+                type: string
+                example: Interstellar
+              thumbnail:
+                type: string
+                format: binary
+              description_en:
+                type: string
+                example: Interstellar is a 2014 epic science fiction film co-written, directed, and produced by Christopher Nolan. It stars Matthew McConaughey, Anne Hathaway, Jessica Chastain, Bill Irwin, Ellen Burstyn, Matt Damon, and Michael Caine.
+              description_ka:
+                type: string
+                example: Interstellar არის 2014 წლის ეპიკური სამეცნიერო ფანტასტიკის ფილმი, რომლის თანადაწერილი, რეჟისორი და პროდიუსერია კრისტოფერ ნოლანი. მასში მონაწილეობენ მეთიუ მაკკონაჰი, ენ ჰეთევეი, ჯესიკა ჩესტეინი, ბილ ირვინი, ელენ ბერსტინი, მეთ დეიმონი და მაიკლ კეინი.
+              director_ka:
+                type: string
+                example: ქრისტოფერ ნოლანი
+              director_en:
+                type: string
+                example: Christopher Nolan
+              year:
+                type: integer
+                example: 2014
+              genre_ids:
+                type: array
+                items:
+                  type: integer
+                example:
+                  - 1
+                  - 2
+                  - 3
+    quoteRequestBody:
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+                quote_en:
+                  type: string
+                  example: I'm gonna make an offer he can't refuse
+                quote_ka:
+                  type: string
+                  example: რა მაქნისია გზა, თუ ტაძართან არ მიმიყვანს?
+                thumbnail:
+                  type: string
+                  format: binary
+                movie_id:
+                  type: integer
+                  example: 1
+
+  parameters:
+    id:
+      name: id
+      in: path
+      description: The Id of the resource
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+
+  schemas:
+    Id:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          example: 1
+    TimeStamps:
+      type: object
+      properties:
+        created_at:
+          type: string
+          example: "2022-07-26T20:06:02.000000Z"
+          nullable: true
+        updated_at:
+          type: string
+          example: "2022-07-26T20:06:02.000000Z"
+          nullable: true
+  responses:
+    movie:
+      "422":
+        description: Unprocessable content
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                errors:
+                  type: object
+                  properties:
+                    movie:
+                      type: array
+                      items:
+                        type: string
+              example:
+                message: The given data was invalid
+                errors:
+                  movie:
+                    type: object
+                    properties:
+                      en:
+                        Movie must be unique
+                      ka:
+                        ფილმი უნდა იყოს განსაკუთრებული
+    quote:
+      "422":
+        description: Unprocessable content
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                errors:
+                  type: object
+                  properties:
+                    movie:
+                      type: array
+                      items:
+                        type: string
+              example:
+                message: The given data was invalid
+                errors:
+                  quote:
+                    en:
+                      Quote must be unique
+                    ka:
+                      ციტატა უნდა იყოს განსაკუთრებული
+    "401":
+      description: Unauthenticated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Unauthenticated
+    "404":
+      description: Not Found
+    "422":
+      description: Unprocessable Content

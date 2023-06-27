@@ -4,17 +4,26 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UpdateProfileRequest;
+use App\Models\User;
 use App\Notifications\CustomVerifyEmail;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-	public function getUser(Request $request)
+	public function getEmailVerification(string $email): void
+	{
+		$user = User::where('email', $email)->first();
+
+		$user->notify(new CustomVerifyEmail($user->generateVerificationUrl(), $user->name));
+	}
+
+	public function getUser(Request $request): User
 	{
 		return $request->user();
 	}
 
-	public function updateUser(UpdateProfileRequest $request)
+	public function updateUser(UpdateProfileRequest $request): JsonResponse
 	{
 		$attributes = $request->validated();
 		$user = $request->user();
@@ -25,9 +34,7 @@ class UserController extends Controller
 		}
 
 		if (isset($attributes['email'])) {
-			$user->email_verified_at = null;
-			$user->email = $attributes['email'];
-			$user->notify(new CustomVerifyEmail($user->generateVerificationUrl(), $user->name));
+			$user->notify(new CustomVerifyEmail($user->generateVerificationUrl($attributes['email']), $user->name));
 		}
 
 		if (isset($attributes['username'])) {

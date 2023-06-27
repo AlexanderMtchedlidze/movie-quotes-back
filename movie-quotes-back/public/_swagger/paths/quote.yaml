@@ -1,0 +1,128 @@
+paths:
+  /quote/add:
+    security:
+      - sanctumAuth: [ ]
+    post:
+      tags:
+        - Quote
+      summary: Create a quote
+      requestBody:
+        $ref: "../common.yaml#/components/requestBodies/quoteRequestBody"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  quote:
+                    $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+                  count:
+                    type: integer
+                    example: 1
+        "422":
+          $ref: "../common.yaml#/components/responses/quote/422"
+  /quote/{quote}:
+    security:
+      - sanctumAuth: []
+    post:
+      tags:
+         - Quote
+      summary: Get a specific quote
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+                        - type: object
+                          properties:
+                            count:
+                              type: integer
+                              example: 1
+  /quote/{quote}/like:
+    security:
+      - sanctumAuth: [ ]
+    post:
+      tags:
+        - Quote
+      summary: Like a quote
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  likes_count:
+                    type: integer
+                    example: 1
+                  user_in_likes:
+                    type: boolean
+                    example: true
+  /quote/{quote}/comment:
+    security:
+      - sanctumAuth: [ ]
+    post:
+      tags:
+        - Quote
+      summary: Comment on a quote
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  comment_id:
+                    type: integer
+                    example: 1
+                  comments_count:
+                    type: integer
+                    example: 1
+  /quote/{quote}/delete:
+    security:
+      - sanctumAuth: [ ]
+    post:
+      tags:
+        - Quote
+      summary: Delete a quote
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+  /quote/{quote}/edit:
+    security:
+      - sanctumAuth: [ ]
+    post:
+      tags:
+        - Quote
+      summary: Edit a quote
+      requestBody:
+        $ref: "../common.yaml#/components/requestBodies/quoteRequestBody"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      quote:
+                        $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+        "422":
+          $ref: "../common.yaml#/components/responses/quote/422"
