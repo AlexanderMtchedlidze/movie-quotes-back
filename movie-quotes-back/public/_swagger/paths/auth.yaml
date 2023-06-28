@@ -157,14 +157,3 @@ paths:
           $ref: "../responses/auth.yaml#/components/responses/get-email-verification/200"
         "404":
           $ref: "../common.yaml#/components/responses/404"
-  /is-password-verification-expired:
-    get:
-      tags:
-        - Auth
-      responses:
-        "200":
-          $ref: "../responses/auth.yaml#/components/responses/is-password-verification-expired/200"
-        "404":
-          $ref: "../common.yaml#/components/responses/404"
-        "419":
-          $ref: "../responses/auth.yaml#/components/responses/is-password-verification-expired/419"

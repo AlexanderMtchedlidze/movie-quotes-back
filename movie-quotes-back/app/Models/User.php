@@ -61,10 +61,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
 		$url = config('app.vite_app_url') . '?id=' . $this->id . '&hash=' . sha1($email);
 
-		$expiration = now()->addWeek()->timestamp;
-
-		session()->put('registration_verification_expiration', $expiration);
-
 		if ($email !== $this->email) {
 			$url .= '&email=' . urlencode($email);
 		} else {
@@ -77,10 +73,6 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 	public function sendPasswordResetNotification($token): void
 	{
 		$url = config('app.vite_app_url') . '?token=' . $token . '&email=' . $this->email;
-
-		$expiration = now()->addWeek()->timestamp;
-
-		session()->put('forgot_password_verification_expiration', $expiration);
 
 		$this->notify(new ResetPasswordNotification($url, $this->name, $this->email));
 	}
