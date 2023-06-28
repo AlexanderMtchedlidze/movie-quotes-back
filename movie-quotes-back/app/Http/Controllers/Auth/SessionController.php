@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\StoreSessionRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -30,13 +29,13 @@ class SessionController extends Controller
 			throw ValidationException::withMessages($errorMessages);
 		}
 
-		Auth::login($user, $request->filled('remember-me'));
+		auth()->login($user, $request->filled('remember-me'));
 		session()->regenerate();
 	}
 
 	public function logout(): void
 	{
-		Auth::logout();
+		auth()->logout();
 
 		session()->regenerate();
 	}

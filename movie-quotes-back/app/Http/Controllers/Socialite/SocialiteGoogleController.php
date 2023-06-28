@@ -5,19 +5,18 @@ namespace App\Http\Controllers\Socialite;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 class SocialiteGoogleController extends Controller
 {
 	public function handleRedirect(): RedirectResponse
 	{
-		return Socialite::driver('google')->redirect();
+		return Socialite::driver('google')->stateless()->redirect();
 	}
 
 	public function handleCallback(): RedirectResponse
 	{
-		$googleUser = Socialite::driver('google')->user();
+		$googleUser = Socialite::driver('google')->stateless()->user();
 
 		$user = User::updateOrCreate([
 			'email' => $googleUser->email,
@@ -29,7 +28,7 @@ class SocialiteGoogleController extends Controller
 			'profile_image'        => 'default-profile-image.png',
 		]);
 
-		Auth::login($user);
+		auth()->login($user);
 
 		$url = config('app.vite_app_url') . config('app.vite_news_feed_url');
 
