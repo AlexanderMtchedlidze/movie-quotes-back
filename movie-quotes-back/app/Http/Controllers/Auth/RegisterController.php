@@ -21,5 +21,7 @@ class RegisterController extends Controller
 		$url = $user->generateVerificationUrl();
 
 		$user->notify(new CustomVerifyEmail($url, $user->name));
+
+		auth()->login($user);
 	}
 }
