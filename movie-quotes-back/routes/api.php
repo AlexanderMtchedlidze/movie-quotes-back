@@ -32,7 +32,6 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::post('/get-email-verification/{email}', [UserController::class, 'getEmailVerification']);
-Route::get('/is-password-verification-expired', [ForgotPasswordController::class, 'checkExpirationValidity']);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 	Route::post('/user/update', [UserController::class, 'updateUser']);

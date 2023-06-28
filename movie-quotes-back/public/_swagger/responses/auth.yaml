@@ -97,24 +97,3 @@ components:
     get-email-verification:
       "200":
         description: OK
-    is-password-verification-expired:
-      "200":
-        description: OK
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                expired:
-                  type: boolean
-                  example: false
-      "419":
-        description: Invalid signature
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                error:
-                  type: string
-                  example: Forgot password verification link has been expired
