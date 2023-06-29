@@ -67,7 +67,61 @@ components:
         type: integer
         minimum: 1
         default: 1
-
+    quote:
+      in: path
+      name: quote
+      schema:
+        type: integer
+        example: 1
+      required: true
+      description: Quote id
+    notification:
+      in: path
+      name: notification
+      schema:
+        type: integer
+        example: 1
+      required: true
+    query:
+      in: path
+      name: query
+      schema:
+        type: string
+        example: Example Query
+      required: true
+      description: Example query to filter results
+    user:
+      in: path
+      name: user
+      schema:
+        type: integer
+        example: 1
+      required: true
+      description: User id
+    movie:
+      in: path
+      name: movie
+      schema:
+        type: integer
+        example: 1
+      required: true
+      description: Movie id
+    hash:
+      in: path
+      name: hash
+      schema:
+        type: string
+        example: 1920c12caf1e0ead5fa7f67b529cfb523e611d47
+      required: true
+      description: Hashed value
+    email:
+      in: path
+      name: email
+      schema:
+        type: string
+        example: test@example.com
+      required: true
+      description: User email
   schemas:
     Id:
       type: object

@@ -73,6 +73,10 @@ components:
       type: apiKey
       in: cookie
       name: X-CSRF-TOKEN
+    laravelSession:
+      type: apiKey
+      in: cookie
+      name: laravel_session
   schemas:
     User:
       allOf:

@@ -2,6 +2,7 @@ paths:
   /quotes:
     security:
       - sanctumAuth: []
+      - laravelSession: []
     get:
       tags:
         - Quotes

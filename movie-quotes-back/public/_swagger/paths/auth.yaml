@@ -137,6 +137,9 @@ paths:
       tags:
         - Auth
       summary: Verify an email
+      parameters:
+        - $ref: "../common.yaml#/components/parameters/id"
+        - $ref: "../common.yaml#/components/parameters/hash"
       responses:
         "200":
           $ref: "../responses/auth.yaml#/components/responses/email~1verify/200"
@@ -149,6 +152,8 @@ paths:
       tags:
         - Auth
       summary: Send an email verification
+      parameters:
+        - $ref: "../common.yaml#/components/parameters/email"
       responses:
         "200":
           $ref: "../responses/auth.yaml#/components/responses/get-email-verification/200"

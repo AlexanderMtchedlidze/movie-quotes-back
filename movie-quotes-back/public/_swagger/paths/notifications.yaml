@@ -30,6 +30,8 @@ paths:
       tags:
         - Notifications
       summary: Mark specific notification as read
+      parameters:
+        - $ref: "../common.yaml#/components/parameters/notification"
       responses:
         "200":
           $ref: "../responses/notifications.yaml#/components/responses/mark-as-read/200"
