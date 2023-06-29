@@ -164,7 +164,7 @@ it will watch JS files and on change it'll rebuild them, so you don't have to ma
 
 Then everything should be OK :pray:
 
-[Database Design Diagram](./readme/assets/diagram.png)
+[Database Design Diagram](https://drawsql.app/teams/redberry-36/diagrams/movie-quotes-upgraded)
 
 <img src="readme/assets/diagram.png" style="position: relative; top: 4px" />
 
