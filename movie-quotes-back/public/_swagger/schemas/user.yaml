@@ -20,7 +20,7 @@ components:
               nullable: true
             profile_image:
               type: string
-              example: 'default-profile-image.png'
+              example: 'default-profile-diagram.png'
             remember_token:
               type: string
               nullable: true

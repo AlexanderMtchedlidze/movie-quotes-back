@@ -1,7 +1,8 @@
 paths:
   /quote/add:
     security:
-      - sanctumAuth: [ ]
+      - sanctumAuth: []
+      - laravelSession: []
     post:
       tags:
         - Quote
@@ -25,10 +26,12 @@ paths:
   /quote/{quote}:
     security:
       - sanctumAuth: []
-    post:
+    get:
       tags:
          - Quote
       summary: Get a specific quote
+      parameters:
+        - $ref: "../common.yaml#/components/parameters/quote"
       responses:
         "200":
           content:
@@ -53,6 +56,8 @@ paths:
       tags:
         - Quote
       summary: Like a quote
+      parameters:
+        - $ref: "../common.yaml#/components/parameters/quote"
       responses:
         "200":
           content:
@@ -73,6 +78,8 @@ paths:
       tags:
         - Quote
       summary: Comment on a quote
+      parameters:
+        - $ref: "../common.yaml#/components/parameters/quote"
       responses:
         "200":
           content:
@@ -93,6 +100,8 @@ paths:
       tags:
         - Quote
       summary: Delete a quote
+      parameters:
+        - $ref: "../common.yaml#/components/parameters/quote"
       responses:
         "200":
           content:
@@ -110,6 +119,8 @@ paths:
       tags:
         - Quote
       summary: Edit a quote
+      parameters:
+        - $ref: "../common.yaml#/components/parameters/quote"
       requestBody:
         $ref: "../common.yaml#/components/requestBodies/quoteRequestBody"
       responses:

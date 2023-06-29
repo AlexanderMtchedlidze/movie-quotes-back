@@ -1,35 +1,41 @@
 paths:
-  /movie/{id}:
+  /movie/{movie}:
     security:
       - sanctumAuth: []
     get:
       tags:
         - Movie
       summary: Get a movie
+      parameters:
+        - $ref: "../common.yaml#/components/parameters/movie"
       responses:
         "200":
           $ref: "../responses/movie.yaml#/components/responses/movie/200"
         "404":
           $ref: "../common.yaml#/components/responses/404"
-  /movie/{id}/delete:
+  /movie/{movie}/delete:
     security:
       - sanctumAuth: [ ]
     post:
       tags:
         - Movie
       summary: Delete a movie
+      parameters:
+        - $ref: "../common.yaml#/components/parameters/movie"
       responses:
         "200":
           description: No Content
         "404":
           $ref: "../common.yaml#/components/responses/404"
-  /movie/{id}/edit:
+  /movie/{movie}/edit:
     security:
       - sanctumAuth: [ ]
     post:
       tags:
         - Movie
       summary: Edit a movie
+      parameters:
+        - $ref: "../common.yaml#/components/parameters/movie"
       requestBody:
         required: true
         $ref: "../common.yaml#/components/requestBodies/movieRequestBody"

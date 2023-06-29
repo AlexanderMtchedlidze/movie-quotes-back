@@ -42,6 +42,8 @@ paths:
         tags:
           - Movies
         summary: Get only user specific movies
+        parameters:
+          - $ref: "../common.yaml#/components/parameters/user"
         responses:
           "200":
             description: Successful response
@@ -63,10 +65,12 @@ paths:
   /movies/search/{query}:
     security:
       - sanctumAuth: [ ]
-    post:
+    get:
       tags:
         - Movies
       summary: Get query-filtered movies
+      parameters:
+        - $ref: "../common.yaml#/components/parameters/query"
       responses:
         "200":
           description: Successful response
