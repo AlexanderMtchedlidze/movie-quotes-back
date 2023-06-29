@@ -1,5 +1,5 @@
 paths:
-  /movie/{id}:
+  /movie/{movie}:
     security:
       - sanctumAuth: []
     get:
@@ -11,7 +11,7 @@ paths:
           $ref: "../responses/movie.yaml#/components/responses/movie/200"
         "404":
           $ref: "../common.yaml#/components/responses/404"
-  /movie/{id}/delete:
+  /movie/{movie}/delete:
     security:
       - sanctumAuth: [ ]
     post:
@@ -23,7 +23,7 @@ paths:
           description: No Content
         "404":
           $ref: "../common.yaml#/components/responses/404"
-  /movie/{id}/edit:
+  /movie/{movie}/edit:
     security:
       - sanctumAuth: [ ]
     post:

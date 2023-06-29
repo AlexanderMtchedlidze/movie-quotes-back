@@ -25,7 +25,7 @@ paths:
   /quote/{quote}:
     security:
       - sanctumAuth: []
-    post:
+    get:
       tags:
          - Quote
       summary: Get a specific quote

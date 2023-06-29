@@ -31,12 +31,12 @@ paths:
       $ref: "./_swagger/paths/movies.yaml#/paths/~1movie~1{user}"
   /movies/search/{query}:
     $ref: "./_swagger/paths/movies.yaml#/paths/~1movies~1search~1{query}"
-  /movie/{id}:
-    $ref: "./_swagger/paths/movie.yaml#/paths/~1movie~1{id}"
-  /movie/{id}/delete:
-      $ref: "./_swagger/paths/movie.yaml#/paths/~1movie~1{id}~1delete"
-  /movie/{id}/edit:
-      $ref: "./_swagger/paths/movie.yaml#/paths/~1movie~1{id}~1edit"
+  /movie/{movie}:
+    $ref: "./_swagger/paths/movie.yaml#/paths/~1movie~1{movie}"
+  /movie/{movie}/delete:
+      $ref: "./_swagger/paths/movie.yaml#/paths/~1movie~1{movie}~1delete"
+  /movie/{movie}/edit:
+      $ref: "./_swagger/paths/movie.yaml#/paths/~1movie~1{movie}~1edit"
   /user:
       $ref: "./_swagger/paths/user.yaml#/paths/~1user"
   /user/update:
