@@ -12,4 +12,8 @@ class ForgotPasswordController extends Controller
 	{
 		Password::sendResetLink($request->validated());
 	}
+
+	public function checkExpiration(): void
+	{
+	}
 }

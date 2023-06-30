@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\URL;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
@@ -59,20 +60,20 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 	{
 		$email = $email ?? $this->email;
 
-		$url = config('app.vite_app_url') . '?id=' . $this->id . '&hash=' . sha1($email);
-
-		if ($email !== $this->email) {
-			$url .= '&email=' . urlencode($email);
-		} else {
-			$url .= '&email=' . urlencode($this->email);
-		}
-
-		return $url;
+		return URL::temporarySignedRoute(
+			'verification.verify',
+			now()->addWeek(),
+			['id' => $this->id, 'hash' => sha1($email), 'email' => $this->email]
+		);
 	}
 
 	public function sendPasswordResetNotification($token): void
 	{
-		$url = config('app.vite_app_url') . '?token=' . $token . '&email=' . $this->email;
+		$url = URL::temporarySignedRoute(
+			'password.expiration',
+			now()->addWeek(),
+			['token' => $token, 'email' => $this->email]
+		);
 
 		$this->notify(new ResetPasswordNotification($url, $this->name, $this->email));
 	}
