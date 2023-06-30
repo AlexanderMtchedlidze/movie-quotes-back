@@ -98,6 +98,17 @@ paths:
           $ref: "../responses/auth.yaml#/components/responses/forgot-password/200"
         "404":
           $ref: "../common.yaml#/components/responses/404"
+    get:
+      tags:
+        - Auth
+      summary: Check if password forgot email has been expired
+      responses:
+        "200":
+          $ref: "../responses/auth.yaml#/components/responses/forgot-password/200"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+        "403":
+          $ref: "../common.yaml#/components/responses/403"
   /reset-password:
     post:
       tags:
@@ -145,8 +156,9 @@ paths:
           $ref: "../responses/auth.yaml#/components/responses/email~1verify/200"
         "404":
           $ref: "../common.yaml#/components/responses/404"
-        "419":
-          $ref: "../responses/auth.yaml#/components/responses/email~1verify/419"
+        "403":
+          $ref: "../common.yaml#/components/responses/403"
+
   /get-email-verification/{email}:
     post:
       tags:

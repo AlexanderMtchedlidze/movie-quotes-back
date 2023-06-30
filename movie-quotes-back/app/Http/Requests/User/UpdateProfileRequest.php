@@ -18,31 +18,25 @@ class UpdateProfileRequest extends FormRequest
 
 		return [
 			'profile_image' => 'image',
-			'username'      => [
-				Rule::unique('users', 'name')->ignore($userId),
-			],
+			'username'      => 'sometimes|min:3|max:15|regex:/^[a-z]+$/',
 			'email'         => [
 				'email',
 				Rule::unique('users')->ignore($userId),
 			],
-			'password'      => 'min:8|max:15|regex:/^[a-z]+$/|confirmed',
+			'password'      => 'sometimes|min:8|max:15|regex:/^[a-z]+$/|confirmed',
 		];
 	}
 
 	public function messages()
 	{
 		return [
-			'profile_image' => [
-				'en' => 'Image must be an image :)',
+			'profile_image.image' => [
+				'en' => 'Image must be an image',
 				'ka' => 'სურათი უნდა იყოს სურათი',
-			],
-			'username.unique' => [
-				'en' => 'Name must be unique',
-				'ka' => 'სახელი უნდა იყოს განსაკუთრებული',
 			],
 			'email.unique' => [
 				'en' => 'Email must be unique',
-				'ka' => 'ელფოსტა უნდა იყოს განსაკუთრებული',
+				'ka' => 'ელ-ფოსტა უნდა იყოს განსაკუთრებული',
 			],
 		];
 	}

@@ -72,7 +72,7 @@ components:
     santcumAuth:
       type: apiKey
       in: cookie
-      name: X-CSRF-TOKEN
+      name: XSRF-TOKEN
     laravelSession:
       type: apiKey
       in: cookie

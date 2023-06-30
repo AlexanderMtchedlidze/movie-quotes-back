@@ -83,7 +83,7 @@ Route::get('/email/verify/{id}/{hash}', EmailVerificationController::class)
 	->middleware('signed')->name('verification.verify');
 
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
-Route::get('/forgot-password-expiration', [ForgotPasswordController::class, 'checkExpiration'])->name('password.expiration')->middleware('signed');
+Route::get('/forgot-password', [ForgotPasswordController::class, 'checkExpiration'])->name('password.expiration')->middleware('signed');
 
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 

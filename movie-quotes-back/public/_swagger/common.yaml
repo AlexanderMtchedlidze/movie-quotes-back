@@ -204,7 +204,27 @@ components:
               message:
                 type: string
                 example: Unauthenticated
+    "403":
+      description: Invalid signature
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                example: Invalid signature
     "404":
       description: Not Found
+    "419":
+      description: CSRF token mismatch
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: CSRF token mismatch
     "422":
       description: Unprocessable Content

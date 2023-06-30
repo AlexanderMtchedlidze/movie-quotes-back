@@ -13,6 +13,8 @@ paths:
           $ref: "../responses/quotes.yaml#/components/responses/quotes/200"
         "404":
           $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../common.yaml#/components/responses/419"
   /movies/{query}:
     security:
       - sanctumAuth: [ ]
@@ -27,3 +29,5 @@ paths:
           $ref: "../responses/movies.yaml#/components/responses/movies/200"
         "404":
           $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../common.yaml#/components/responses/419"
