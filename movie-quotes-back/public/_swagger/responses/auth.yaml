@@ -84,16 +84,8 @@ components:
     email/verify:
       "200":
         description: OK
-      "419":
-        description: Invalid signature
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                error:
-                  type: string
-                  example: Registration verification link has been expired
+      "403":
+        - $ref: "../common.yaml#/components/responses/403"
     get-email-verification:
       "200":
         description: OK

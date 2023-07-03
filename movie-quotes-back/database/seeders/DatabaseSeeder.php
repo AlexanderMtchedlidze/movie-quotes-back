@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 	{
 		User::factory()->create([
 			'email'             => 'test@example.com',
-			'profile_image'     => '/default-profile-diagram.png',
+			'profile_image'     => '/default-profile-image.png',
 			'email_verified_at' => now(),
 			'password'          => 'password',
 		]);

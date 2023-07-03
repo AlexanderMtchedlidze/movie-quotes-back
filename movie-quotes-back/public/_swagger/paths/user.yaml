@@ -11,6 +11,8 @@ paths:
           $ref: "../responses/user.yaml#/components/responses/user/200"
         "404":
           $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../common.yaml#/components/responses/419"
   /user/update:
     security:
       - sanctumAuth: []
@@ -46,4 +48,5 @@ paths:
                 properties:
                   user:
                     $ref: "../schemas/user.yaml#/components/schemas/User"
-
+        "419":
+          $ref: "../common.yaml#/components/responses/419"

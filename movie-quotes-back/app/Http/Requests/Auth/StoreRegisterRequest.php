@@ -14,7 +14,7 @@ class StoreRegisterRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'name'     => 'required|min:3|max:15|regex:/^[a-z]+$/|unique:users,name',
+			'name'     => 'required|min:3|max:15|regex:/^[a-z]+$/',
 			'email'    => 'required|email|unique:users,email',
 			'password' => 'required|min:8|max:15|regex:/^[a-z]+$/|confirmed',
 		];
@@ -23,13 +23,9 @@ class StoreRegisterRequest extends FormRequest
 	public function messages()
 	{
 		return [
-			'name.unique' => [
-				'en' => 'Name must be unique',
-				'ka' => 'სახელი უნდა იყოს განსაკუთრებული',
-			],
 			'email.unique' => [
 				'en' => 'Email must be unique',
-				'ka' => 'ელფოსტა უნდა იყოს განსაკუთრებული',
+				'ka' => 'ელ-ფოსტა უნდა იყოს განსაკუთრებული',
 			],
 		];
 	}

@@ -80,9 +80,11 @@ Route::post('/logout', [SessionController::class, 'logout']);
 
 Route::post('/register', RegisterController::class);
 Route::get('/email/verify/{id}/{hash}', EmailVerificationController::class)
-	->name('verification.verify');
+	->middleware('signed')->name('verification.verify');
 
 Route::post('/forgot-password', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
+Route::get('/forgot-password', [ForgotPasswordController::class, 'checkExpiration'])->name('password.expiration')->middleware('signed');
+
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
 
 Route::get('/auth/google/redirect', [SocialiteGoogleController::class, 'handleRedirect']);

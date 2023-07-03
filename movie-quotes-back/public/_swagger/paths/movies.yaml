@@ -11,6 +11,8 @@ paths:
           $ref: "../responses/movies.yaml#/components/responses/movies/200"
         "404":
           $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../common.yaml#/components/responses/419"
   /movies/add:
     security:
       - sanctumAuth: [ ]
@@ -33,6 +35,8 @@ paths:
                   count:
                     type: integer
                     example: 1
+        "419":
+          $ref: "../common.yaml#/components/responses/419"
         "422":
           $ref: "../common.yaml#/components/responses/movie/422"
   /movie/{user}:
@@ -62,6 +66,8 @@ paths:
                       example: 1
           "404":
             $ref: "../common.yaml#/components/responses/404"
+          "419":
+            $ref: "../common.yaml#/components/responses/419"
   /movies/search/{query}:
     security:
       - sanctumAuth: [ ]
@@ -85,3 +91,5 @@ paths:
                       $ref: "../schemas/movie.yaml#/components/schemas/Movie"
         "404":
           $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../common.yaml#/components/responses/419"

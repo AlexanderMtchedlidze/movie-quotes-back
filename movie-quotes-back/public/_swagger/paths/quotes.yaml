@@ -12,3 +12,5 @@ paths:
           $ref: "../responses/quotes.yaml#/components/responses/quotes/200"
         "404":
           $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../common.yaml#/components/responses/419"

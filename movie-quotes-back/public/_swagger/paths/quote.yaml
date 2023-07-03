@@ -21,6 +21,10 @@ paths:
                   count:
                     type: integer
                     example: 1
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../common.yaml#/components/responses/419"
         "422":
           $ref: "../common.yaml#/components/responses/quote/422"
   /quote/{quote}:
@@ -49,6 +53,10 @@ paths:
                             count:
                               type: integer
                               example: 1
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../common.yaml#/components/responses/419"
   /quote/{quote}/like:
     security:
       - sanctumAuth: [ ]
@@ -71,6 +79,10 @@ paths:
                   user_in_likes:
                     type: boolean
                     example: true
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../common.yaml#/components/responses/419"
   /quote/{quote}/comment:
     security:
       - sanctumAuth: [ ]
@@ -93,6 +105,10 @@ paths:
                   comments_count:
                     type: integer
                     example: 1
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../common.yaml#/components/responses/419"
   /quote/{quote}/delete:
     security:
       - sanctumAuth: [ ]
@@ -112,6 +128,10 @@ paths:
                   count:
                     type: integer
                     example: 1
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../common.yaml#/components/responses/419"
   /quote/{quote}/edit:
     security:
       - sanctumAuth: [ ]
@@ -135,5 +155,9 @@ paths:
                     properties:
                       quote:
                         $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+        "419":
+          $ref: "../common.yaml#/components/responses/419"
         "422":
           $ref: "../common.yaml#/components/responses/quote/422"

@@ -11,7 +11,7 @@ class EmailVerificationController extends Controller
 	/**
 	 * Handle the incoming request.
 	 */
-	public function __invoke(Request $request): void
+	public function __invoke(Request $request)
 	{
 		$email = $request->query('email');
 
