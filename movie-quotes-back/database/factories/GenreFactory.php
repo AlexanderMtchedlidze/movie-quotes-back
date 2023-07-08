@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Genre;
+use Arr;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +18,25 @@ class GenreFactory extends Factory
 	 */
 	public function definition(): array
 	{
+		$genres = [
+			['ka'    => 'სათავგადასავლო', 'en' => 'Adventure'],
+			['ka'    => 'თრილერი', 'en' => 'Thriller'],
+			['ka'    => 'კომედია', 'en' => 'Comedy'],
+		];
+
+		$genre = Arr::random($genres);
+
+		$existingGenre = Genre::where(function ($query) use ($genre) {
+			$query->where('genre->en', 'like', '%' . $genre['en'] . '%')
+				->orWhere('genre->ka', 'like', '%' . $genre['ka'] . '%');
+		})->first();
+
+		if ($existingGenre) {
+			dd($existingGenre);
+		}
+
 		return [
-			'genre' => fake()->word,
+			'genre' => $genre,
 		];
 	}
 }

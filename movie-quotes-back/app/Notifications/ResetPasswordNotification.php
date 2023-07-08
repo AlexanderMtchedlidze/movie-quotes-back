@@ -10,20 +10,11 @@ class ResetPasswordNotification extends Notification
 {
 	use Queueable;
 
-	public string $url;
-
-	public string $userName;
-
-	public string $email;
-
 	/**
 	 * Create a new notification instance.
 	 */
-	public function __construct(string $url, string $userName, string $email)
+	public function __construct(public string $url, public string $userName, public string $email)
 	{
-		$this->url = $url;
-		$this->userName = $userName;
-		$this->email = $email;
 	}
 
 	/**

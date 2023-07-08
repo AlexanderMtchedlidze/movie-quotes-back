@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -29,15 +28,5 @@ class Movie extends Model
 	public function genres(): BelongsToMany
 	{
 		return $this->belongsToMany(Genre::class, 'genre_movies');
-	}
-
-	public function scopeFilter(Builder $query, array $filters): void
-	{
-		$query->when(
-			$filters['movie'] ?? null,
-			fn ($query, $search) => $query
-				->where('movie->en', 'like', '%' . $search . '%')
-				->orWhere('movie->ka', 'like', '%' . $search . '%')
-		);
 	}
 }

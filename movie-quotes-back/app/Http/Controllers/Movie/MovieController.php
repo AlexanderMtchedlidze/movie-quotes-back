@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Movie\StoreMovieRequest;
 use App\Http\Requests\Movie\UpdateMovieRequest;
 use App\Http\Resources\MovieResource;
+use App\Http\Resources\QuoteResource;
 use App\Models\Movie;
+use App\Models\Quote;
 use App\Models\User;
 use App\Policies\MoviePolicy;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -20,6 +23,16 @@ class MovieController extends Controller
 			Movie::orderByDesc('created_at')
 				->with('author')
 				->get()
+		);
+	}
+
+	public function filterQuotes(String $query): AnonymousResourceCollection
+	{
+		return QuoteResource::collection(
+			Quote::filter(['movie' => $query])
+				->orderByDesc('created_at')
+				->with('author', 'movie', 'comments.author', 'likes')
+				->paginate()
 		);
 	}
 
@@ -41,7 +54,7 @@ class MovieController extends Controller
 	{
 		$attributes = $request->validated();
 
-		$movie = Movie::create(['user_id' => auth()->user()->id,
+		$movie = Movie::create(['user_id' => auth()->id(),
 			'movie'                          => [
 				'en' => $attributes['movie_en'],
 				'ka' => $attributes['movie_ka'],
@@ -64,18 +77,6 @@ class MovieController extends Controller
 			'movie' => new MovieResource($movie),
 			'count' => auth()->user()->movies()->count(),
 		]);
-	}
-
-	public function filterMovies(String $query): AnonymousResourceCollection
-	{
-		$movies = auth()->user()->movies();
-
-		return MovieResource::collection(
-			$movies->filter(['movie' => $query])
-				->orderByDesc('created_at')
-				->withCount('quotes')
-				->get()
-		);
 	}
 
 	public function getMovie(Movie $movie): JsonResponse
@@ -118,6 +119,7 @@ class MovieController extends Controller
 			];
 
 			if ($request->hasFile('thumbnail')) {
+				Storage::disk('thumbnails')->delete($movie->thumbnail);
 				$movieData['thumbnail'] = $request->file('thumbnail')->store('thumbnails');
 			}
 

@@ -8,14 +8,14 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class UpdateCommentCount implements ShouldBroadcast
+class UpdateQuoteComments implements ShouldBroadcast
 {
 	use Dispatchable, InteractsWithSockets, SerializesModels;
 
 	/**
 	 * Create a new event instance.
 	 */
-	public function __construct(public $commentsCount, public $quoteId)
+	public function __construct(public $commentsCount, public $comment, public $quoteId)
 	{
 	}
 
@@ -27,7 +27,7 @@ class UpdateCommentCount implements ShouldBroadcast
 	public function broadcastOn(): array
 	{
 		return [
-			new Channel('updateCommentCount'),
+			new Channel('updateQuoteComments'),
 		];
 	}
 }

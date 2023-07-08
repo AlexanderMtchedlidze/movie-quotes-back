@@ -10,6 +10,7 @@ use App\Models\Quote;
 use App\Policies\QuotePolicy;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Storage;
 
 class QuoteController extends Controller
 {
@@ -17,14 +18,24 @@ class QuoteController extends Controller
 	{
 		return QuoteResource::collection(
 			Quote::orderByDesc('created_at')
-				->with('author', 'movie', 'comments', 'likes')
+				->with('author', 'movie', 'comments.author', 'likes')
+				->paginate()
+		);
+	}
+
+	public function filterQuotes(String $query): AnonymousResourceCollection
+	{
+		return QuoteResource::collection(
+			Quote::filter(['quote' => $query])
+				->orderByDesc('created_at')
+				->with('author', 'movie', 'comments.author', 'likes')
 				->paginate()
 		);
 	}
 
 	public function getQuote(Quote $quote): QuoteResource
 	{
-		$quote->load('author', 'movie', 'comments', 'likes');
+		$quote->load('author', 'movie', 'comments.author', 'likes');
 		return new QuoteResource($quote);
 	}
 
@@ -40,7 +51,7 @@ class QuoteController extends Controller
 			],
 		]);
 
-		$quote->load('author', 'movie', 'comments', 'likes');
+		$quote->load('author', 'movie', 'comments.author', 'likes');
 		$quote->movie->load('genres', 'quotes')->loadCount('quotes');
 
 		return response()->json([
@@ -78,12 +89,13 @@ class QuoteController extends Controller
 		}
 
 		if ($request->hasFile('thumbnail')) {
+			Storage::disk('thumbnails')->delete($quote->thumbnail);
 			$quote->thumbnail = $request->file('thumbnail')->store('thumbnails');
 		}
 
 		$quote->save();
 
-		$quote->load('author', 'movie', 'comments', 'likes');
+		$quote->load('author', 'movie', 'comments.author', 'likes');
 
 		return response()->json(['quote' => new QuoteResource($quote)]);
 	}

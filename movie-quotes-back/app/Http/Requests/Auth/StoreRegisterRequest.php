@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRegisterRequest extends FormRequest
 {
@@ -14,9 +15,9 @@ class StoreRegisterRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'name'     => 'required|min:3|max:15|regex:/^[a-z]+$/',
-			'email'    => 'required|email|unique:users,email',
-			'password' => 'required|min:8|max:15|regex:/^[a-z]+$/|confirmed',
+			'name'     => ['required', 'min:3', 'max:15', 'regex:/^[a-z0-9]+$/'],
+			'email'    => ['required', 'email', Rule::unique('users', 'email'), 'email'],
+			'password' => ['required', 'min:8', 'max:15', 'regex:/^[a-z0-9]+$/', 'confirmed'],
 		];
 	}
 

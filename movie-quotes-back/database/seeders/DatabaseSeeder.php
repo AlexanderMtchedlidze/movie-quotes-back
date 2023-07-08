@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
 
 		Movie::factory(5)->create();
 
-		Genre::factory(10)->create();
+		Genre::factory(3)->create();
 
 		GenreMovies::factory(5)->create();
 

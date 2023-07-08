@@ -14,9 +14,9 @@ class StoreSessionRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'username'    => 'required|min:3',
-			'password'    => 'required',
-			'remember-me' => 'sometimes',
+			'username'    => ['required', 'min:3'],
+			'password'    => ['required'],
+			'remember-me' => ['sometimes'],
 		];
 	}
 }

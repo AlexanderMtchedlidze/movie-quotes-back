@@ -22,8 +22,8 @@ class StoreQuoteRequest extends FormRequest
 			'quote_ka'    => [
 				'required',
 				Rule::unique('quotes', 'quote->en')],
-			'thumbnail'   => 'required|image',
-			'movie_id'    => 'required|exists:movies,id',
+			'thumbnail'   => ['required', 'image'],
+			'movie_id'    => ['required', Rule::exists('movies', 'id')],
 		];
 	}
 

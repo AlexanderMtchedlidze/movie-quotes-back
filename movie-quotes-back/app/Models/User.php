@@ -51,7 +51,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 		'password'          => 'hashed',
 	];
 
-	public function setPasswordAttribute($password): void
+	public function setPasswordAttribute(string $password): void
 	{
 		$this->attributes['password'] = bcrypt($password);
 	}

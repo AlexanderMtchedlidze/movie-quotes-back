@@ -7,14 +7,8 @@ use Illuminate\Notifications\Notification;
 
 class CustomVerifyEmail extends Notification
 {
-	public string $url;
-
-	public string $userName;
-
-	public function __construct(string $url, string $userName)
+	public function __construct(public string $url, public string $userName)
 	{
-		$this->url = $url;
-		$this->userName = $userName;
 	}
 
 	public function via(object $notifiable): array

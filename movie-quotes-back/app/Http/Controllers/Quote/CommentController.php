@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Quote;
 
 use App\Events\NotificationSent;
-use App\Events\UpdateCommentCount;
+use App\Events\UpdateQuoteComments;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Quote\StoreCommentRequest;
 use App\Http\Resources\NotificationResource;
@@ -20,20 +20,22 @@ class CommentController extends Controller
 		$notificationPolicy = new NotificationPolicy();
 
 		$comment = Comment::create([
-			'user_id'  => auth()->user()->id,
+			'user_id'  => auth()->id(),
 			'quote_id' => $quote->id,
 			'comment'  => $request->validated()['comment'],
 		]);
 
+		$comment->load('author');
+
 		$commentsCount = $quote->comments()->count();
 
-		event(new UpdateCommentCount($commentsCount, $quote->id));
+		event(new UpdateQuoteComments($commentsCount, $comment, $quote->id));
 
 		if ($notificationPolicy->create(auth()->user(), $quote)) {
 			$notification = Notification::create([
 				'quote_id'    => $quote->id,
 				'receiver_id' => $quote->user_id,
-				'sender_id'   => auth()->user()->id,
+				'sender_id'   => auth()->id(),
 				'commented'   => true,
 			]);
 			$notification->load('receiver', 'sender');

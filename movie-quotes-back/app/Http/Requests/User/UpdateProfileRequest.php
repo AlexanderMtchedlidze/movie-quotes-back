@@ -18,12 +18,12 @@ class UpdateProfileRequest extends FormRequest
 
 		return [
 			'profile_image' => 'image',
-			'username'      => 'sometimes|min:3|max:15|regex:/^[a-z]+$/',
+			'username'      => 'min:3|max:15|regex:/^[a-z0-9]+$/',
 			'email'         => [
 				'email',
 				Rule::unique('users')->ignore($userId),
 			],
-			'password'      => 'sometimes|min:8|max:15|regex:/^[a-z]+$/|confirmed',
+			'password'      => 'min:8|max:15|regex:/^[a-z0-9]+$/|confirmed',
 		];
 	}
 
