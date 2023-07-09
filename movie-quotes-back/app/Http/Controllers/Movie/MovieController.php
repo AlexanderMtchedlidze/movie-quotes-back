@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
-	public function getAllMovies()
+	public function getAllMovies(): AnonymousResourceCollection
 	{
 		return MovieResource::collection(
 			Movie::orderByDesc('created_at')
@@ -36,7 +36,7 @@ class MovieController extends Controller
 		);
 	}
 
-	public function getUserMovies(User $user)
+	public function getUserMovies(User $user): JsonResponse
 	{
 		$movies = $user
 			->movies()

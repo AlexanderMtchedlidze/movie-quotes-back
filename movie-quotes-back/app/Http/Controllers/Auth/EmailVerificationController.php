@@ -17,7 +17,7 @@ class EmailVerificationController extends Controller
 
 		$user = User::find($request->route('id'));
 
-		if ($email) {
+		if ($user && $email) {
 			$user->email = $email;
 			$user->save();
 		}

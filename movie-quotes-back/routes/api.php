@@ -12,6 +12,7 @@ use App\Http\Controllers\PasswordReset\ResetPasswordController;
 use App\Http\Controllers\Quote\CommentController;
 use App\Http\Controllers\Quote\LikeController;
 use App\Http\Controllers\Quote\QuoteController;
+use App\Http\Controllers\SearchController\SearchController;
 use App\Http\Controllers\Socialite\SocialiteGoogleController;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +65,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 	Route::prefix('/search')->group(function () {
 		Route::get('/quotes/{query}', [QuoteController::class, 'filterQuotes'])->name('quote.filter-quotes');
 		Route::get('/movies/{query}', [MovieController::class, 'filterQuotes'])->name('movie.quotes-filter');
+		Route::get('/all/{query}', SearchController::class)->name('search.all');
 	});
 
 	Route::prefix('/notifications')->group(function () {

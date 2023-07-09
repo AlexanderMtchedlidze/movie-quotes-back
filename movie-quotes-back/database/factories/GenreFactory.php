@@ -26,13 +26,13 @@ class GenreFactory extends Factory
 
 		$genre = Arr::random($genres);
 
-		$existingGenre = Genre::where(function ($query) use ($genre) {
-			$query->where('genre->en', 'like', '%' . $genre['en'] . '%')
-				->orWhere('genre->ka', 'like', '%' . $genre['ka'] . '%');
-		})->first();
+		$existingGenre = Genre::where(
+			fn ($query) => $query->where('genre->en', 'like', '%' . $genre['en'] . '%')
+				->orWhere('genre->ka', 'like', '%' . $genre['ka'] . '%')
+		)->first();
 
 		if ($existingGenre) {
-			dd($existingGenre);
+			return $this->definition();
 		}
 
 		return [
