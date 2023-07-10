@@ -17,10 +17,10 @@ class UpdateQuoteRequest extends FormRequest
 		$quoteId = $this->route('quote');
 
 		return [
-			'movie_id'  => 'required|exists:movies,id',
-			'quote_en'  => Rule::unique('quotes', 'quote->en')->ignore($quoteId),
-			'quote_ka'  => Rule::unique('quotes', 'quote->ka')->ignore($quoteId),
-			'thumbnail' => 'image',
+			'movie_id'  => ['required', Rule::exists('movies', 'id')],
+			'quote_en'  => [Rule::unique('quotes', 'quote->en')->ignore($quoteId)],
+			'quote_ka'  => [Rule::unique('quotes', 'quote->ka')->ignore($quoteId)],
+			'thumbnail' => ['image'],
 		];
 	}
 

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Notifications\CustomVerifyEmail;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -26,9 +27,10 @@ class UserController extends Controller
 	public function updateUser(UpdateProfileRequest $request): JsonResponse
 	{
 		$attributes = $request->validated();
-		$user = $request->user();
+		$user = auth()->user();
 
 		if ($request->hasFile('profile_image')) {
+			Storage::delete($user->profile_image);
 			$profileImagePath = $request->file('profile_image')->store();
 			$user->profile_image = $profileImagePath;
 		}

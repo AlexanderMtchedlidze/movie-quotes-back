@@ -17,12 +17,12 @@ class StoreMovieRequest extends FormRequest
 		return [
 			'movie_ka'             => ['required', Rule::unique('movies', 'movie->ka')],
 			'movie_en'             => ['required', Rule::unique('movies', 'movie->en')],
-			'thumbnail'            => 'required|image',
-			'description_en'       => 'required',
-			'description_ka'       => 'required',
-			'year'                 => 'required|integer',
-			'director_en'          => 'required',
-			'director_ka'          => 'required',
+			'thumbnail'            => ['required', 'image'],
+			'description_en'       => ['required'],
+			'description_ka'       => ['required'],
+			'year'                 => ['required', 'integer'],
+			'director_en'          => ['required'],
+			'director_ka'          => ['required'],
 			'genre_ids'            => ['required', 'array', 'min:1', Rule::exists('genres', 'id')],
 		];
 	}

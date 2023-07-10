@@ -34,6 +34,18 @@ class Quote extends Model
 						->orWhere('movie->ka', 'like', '%' . $search . '%')
 				)
 		);
+
+		$query->when(
+			$filters['all'] ?? null,
+			fn ($query, $search) => $query
+				->where('quote->en', 'like', '%' . $search . '%')
+				->orWhere('quote->ka', 'like', '%' . $search . '%')
+				->orWhereHas(
+					'movie',
+					fn ($query) => $query->where('movie->en', 'like', '%' . $search . '%')
+						->orWhere('movie->ka', 'like', '%' . $search . '%')
+				)
+		);
 	}
 
 	public function author(): BelongsTo

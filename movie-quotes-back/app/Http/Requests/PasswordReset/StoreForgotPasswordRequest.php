@@ -3,6 +3,7 @@
 namespace App\Http\Requests\PasswordReset;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreForgotPasswordRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class StoreForgotPasswordRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'email' => 'required|email|exists:users,email',
+			'email' => ['required', 'email', Rule::exists('users', 'email')],
 		];
 	}
 
