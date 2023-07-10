@@ -14,7 +14,7 @@ use Illuminate\Http\JsonResponse;
 
 class LikeController extends Controller
 {
-	public function likeQuote(Quote $quote): JsonResponse
+	public function store(Quote $quote): JsonResponse
 	{
 		$notificationPolicy = new NotificationPolicy();
 
@@ -44,7 +44,7 @@ class LikeController extends Controller
 		return response()->json(['likes' => $quote->likes, 'likes_count' => $likesCount, 'user_in_likes' => true]);
 	}
 
-	public function unlikeQuote(Quote $quote): JsonResponse
+	public function destroy(Quote $quote): JsonResponse
 	{
 		$like = Like::where('quote_id', $quote->id)
 			->where('user_id', auth()->id());

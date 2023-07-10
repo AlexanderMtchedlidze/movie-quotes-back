@@ -41,8 +41,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 	Route::prefix('/quote/{quote}')->group(function () {
 		Route::get('/', [QuoteController::class, 'getQuote'])->name('quote.get-quote');
-		Route::post('/like', [LikeController::class, 'likeQuote'])->name('like.like-quote');
-		Route::post('/unlike', [LikeController::class, 'unlikeQuote'])->name('like.unlike-quote');
+		Route::post('/like', [LikeController::class, 'store'])->name('like.like-quote');
+		Route::post('/unlike', [LikeController::class, 'destroy'])->name('like.unlike-quote');
 		Route::post('/comment', [CommentController::class, 'addComment'])->name('comment.add-comment');
 		Route::post('/delete', [QuoteController::class, 'deleteQuote'])->name('quote.delete-quote');
 		Route::post('/edit', [QuoteController::class, 'editQuote'])->name('quote.edit-quote');
