@@ -17,15 +17,16 @@ class UpdateMovieRequest extends FormRequest
 		$movieId = $this->route('movie');
 
 		return [
-			'movie_en'       => ['sometimes', Rule::unique('movies', 'movie->en')->ignore($movieId)],
-			'movie_ka'       => ['sometimes', Rule::unique('movies', 'movie->en')->ignore($movieId)],
-			'thumbnail'      => ['sometimes', 'image'],
-			'year'           => ['sometimes', 'integer'],
-			'director_en'    => ['sometimes'],
-			'director_ka'    => ['sometimes'],
-			'description_en' => ['sometimes'],
-			'description_ka' => ['sometimes'],
-			'genre_ids'      => ['sometimes', 'array', 'min:1', Rule::exists('genres', 'id')],
+			'movie_en'             => ['sometimes', Rule::unique('movies', 'movie->en')->ignore($movieId)],
+			'movie_ka'             => ['sometimes', Rule::unique('movies', 'movie->en')->ignore($movieId)],
+			'thumbnail'            => ['sometimes', 'image'],
+			'year'                 => ['sometimes', 'integer'],
+			'director_en'          => ['sometimes'],
+			'director_ka'          => ['sometimes'],
+			'description_en'       => ['sometimes'],
+			'description_ka'       => ['sometimes'],
+			'budget'               => ['sometimes', 'integer'],
+			'genre_ids'            => ['sometimes', 'array', 'min:1', Rule::exists('genres', 'id')],
 		];
 	}
 }

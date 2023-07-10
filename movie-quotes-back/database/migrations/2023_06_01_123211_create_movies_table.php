@@ -19,6 +19,7 @@ return new class extends Migration {
 			$table->integer('year');
 			$table->string('director');
 			$table->string('description');
+			$table->integer('budget');
 		});
 	}
 

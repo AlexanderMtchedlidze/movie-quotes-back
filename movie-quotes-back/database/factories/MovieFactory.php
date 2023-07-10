@@ -32,9 +32,10 @@ class MovieFactory extends Factory
 				'ka' => fake('ka_GE')->realText(10),
 			],
 			'description' => [
-				'en' => fake()->sentence,
-				'ka' => fake('ka_GE')->realText(10),
+				'en'     => fake()->sentence,
+				'ka'     => fake('ka_GE')->realText(10),
 			],
+			'budget' => fake()->numberBetween(100, 1000),
 		];
 	}
 }

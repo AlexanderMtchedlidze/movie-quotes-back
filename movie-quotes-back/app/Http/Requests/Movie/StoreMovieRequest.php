@@ -21,6 +21,7 @@ class StoreMovieRequest extends FormRequest
 			'description_en'       => ['required'],
 			'description_ka'       => ['required'],
 			'year'                 => ['required', 'integer'],
+			'budget'               => ['required', 'integer'],
 			'director_en'          => ['required'],
 			'director_ka'          => ['required'],
 			'genre_ids'            => ['required', 'array', 'min:1', Rule::exists('genres', 'id')],

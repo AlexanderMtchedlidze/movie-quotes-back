@@ -66,6 +66,7 @@ class MovieController extends Controller
 				'ka' => $attributes['description_ka'],
 			], 'year' => $attributes['year'],
 			'thumbnail' => $request->file('thumbnail')->store('thumbnails'),
+			'budget'    => $attributes['budget'],
 		]);
 
 		$genreIds = $attributes['genre_ids'];
@@ -116,6 +117,7 @@ class MovieController extends Controller
 					'en' => $attributes['description_en'],
 					'ka' => $attributes['description_ka'],
 				], 'year' => $attributes['year'],
+				'budget' => $attributes['budget'],
 			];
 
 			if ($request->hasFile('thumbnail')) {
