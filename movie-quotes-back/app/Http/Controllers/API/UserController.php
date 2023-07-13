@@ -30,7 +30,9 @@ class UserController extends Controller
 		$user = auth()->user();
 
 		if ($request->hasFile('profile_image')) {
-			Storage::delete($user->profile_image);
+			if ($user->profile_image !== '/default-profile-image.png') {
+				Storage::delete($user->profile_image);
+			}
 			$profileImagePath = $request->file('profile_image')->store();
 			$user->profile_image = $profileImagePath;
 		}
